@@ -27,27 +27,27 @@ def create(exec_action)
   end
 
   osrm_map_extract new_resource.region do
-    path        new_resource.path        if new_resource.path
-    profile     new_resource.profile     if new_resource.profile
-    profile_dir new_resource.profile_dir if new_resource.profile_dir
-    command     new_resource.command     if new_resource.command
-    user        new_resource.user        if new_resource.user
-    cwd         new_resource.cwd         if new_resource.cwd
-    threads     new_resource.threads     if new_resource.threads
-    memory      new_resource.memory      if new_resource.memory
+    path        new_resource.path            if new_resource.path
+    profile     new_resource.profile         if new_resource.profile
+    profile_dir new_resource.profile_dir     if new_resource.profile_dir
+    command     new_resource.extract_command if new_resource.extract_command
+    user        new_resource.user            if new_resource.user
+    cwd         new_resource.cwd             if new_resource.cwd
+    threads     new_resource.threads         if new_resource.threads
+    memory      new_resource.memory          if new_resource.memory
 
     action :extract_if_missing if exec_action == :create_if_missing
   end
 
   osrm_map_prepare new_resource.region do
-    path        new_resource.path        if new_resource.path
-    profile     new_resource.profile     if new_resource.profile
-    profile_dir new_resource.profile_dir if new_resource.profile_dir
-    command     new_resource.command     if new_resource.command
-    user        new_resource.user        if new_resource.user
-    cwd         new_resource.cwd         if new_resource.cwd
-    threads     new_resource.threads     if new_resource.threads
-    cleanup     new_resource.cleanup     if new_resource.cleanup
+    path        new_resource.path            if new_resource.path
+    profile     new_resource.profile         if new_resource.profile
+    profile_dir new_resource.profile_dir     if new_resource.profile_dir
+    command     new_resource.prepare_command if new_resource.prepare_command
+    user        new_resource.user            if new_resource.user
+    cwd         new_resource.cwd             if new_resource.cwd
+    threads     new_resource.threads         if new_resource.threads
+    cleanup     new_resource.cleanup         if new_resource.cleanup
 
     action :prepare_if_missing if exec_action == :create_if_missing
   end
