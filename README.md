@@ -35,16 +35,16 @@ osrm_map is a shortcut that calls the other map providers in the following order
 Example
 
     osrm_map 'europe'
-      path
-      user
-      profile
-      profile_dir
-      command
-      user
-      cwd
-      threads
-      memory
-      cleanup
+      path            '/srv/my_map_data'  # use the same directory you used in osrm_map_download)
+      profile         'car'               # profile to use (defaults to 'car')
+      profile_dir     '/srv/my_profiles'  # where to look for profiles (.lua files)
+      extract_command 'osrm-extract'      # path to osrm-extract binary
+      prepare_command 'osrm-prepare'      # path to osrm-prepare binary
+      user            'my_osrm_user'      # user to run commands as
+      cwd             '/srv/my_osrm'      # set working directory for osrm-extract
+      threads         5                   # how many threads to use (defaults to number of cpu cores)
+      memory          4                   # how many GB of memory to use (defaults to system memory - 1GB)
+      cleanup         false               # Do not cleanup .osrm and .osrm.restrictions after preparing
 
       action :create
       action :create_if_missing
