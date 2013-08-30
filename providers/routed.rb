@@ -73,3 +73,14 @@ action :create do
     action [ :enable, :start ]
   end
 end
+
+
+action :delete do
+  config_file  = "#{new_resource.config_dir}/#{new_resource.region}-#{new_resource.profile}.conf"
+  service_name = new_resource.service_name % "#{new_resource.region}-#{new_resource.profile}"
+
+  service(service_name) { action :stop }
+
+  file("/etc/init/#{service_name}.conf") { action :delete }
+  file("/etc/init.d/#{service_name}") { action :delete }
+end

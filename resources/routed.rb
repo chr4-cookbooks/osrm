@@ -18,7 +18,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-actions        :create
+actions        :create, :delete
 default_action :create
 
 attribute :region,       kind_of: String,  name_attribute: true
