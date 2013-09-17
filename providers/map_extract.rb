@@ -54,6 +54,11 @@ def extract(exec_action)
     end
   end
 
+  # remove temporary file (will add up if not deleted)
+  # using execute provider, as file() { action :delete }
+  # is really slow with big files
+  execute 'rm -f /var/tmp/stxxl'
+
   execute "osrm-#{new_resource.region}-#{new_resource.profile}-extract" do
     user    new_resource.user if new_resource.user
     cwd     new_resource.cwd  if new_resource.cwd
