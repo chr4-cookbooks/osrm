@@ -58,19 +58,19 @@ def download(exec_action)
     end
   end
 
-  if exec_action == :download
-    # check whether a new version is available
-    http_request "osrm-#{new_resource.region}-download" do
-      message ''
-      url node['osrm']['map_data'][new_resource.region]['url']
+  # check whether a new version is available
+  http_request "osrm-#{new_resource.region}-download" do
+    message ''
+    url node['osrm']['map_data'][new_resource.region]['url']
 
-      if ::File.exists?(path)
-        headers 'If-Modified-Since' => ::File.mtime(path).httpdate
-      end
-
-      notifies :create, "remote_file[#{path}]", :immediately
-      action :head
+    if ::File.exists?(path)
+      headers 'If-Modified-Since' => ::File.mtime(path).httpdate
     end
+
+    notifies :create, "remote_file[#{path}]", :immediately
+    action :head
+
+    only_if { exec_action == :download }
   end
 end
 
