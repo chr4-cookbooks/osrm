@@ -21,6 +21,7 @@
 actions        :download, :download_if_missing
 default_action :download
 
-attribute :region, kind_of: String, name_attribute: true
-attribute :path,   kind_of: String, default: node['osrm']['map_path']
-attribute :user,   kind_of: String
+attribute :region,   kind_of: String, name_attribute: true
+attribute :path,     kind_of: String, default: node['osrm']['map_path']
+attribute :checksum, kind_of: [ TrueClass, FalseClass, String ], default: true
+attribute :user,     kind_of: String

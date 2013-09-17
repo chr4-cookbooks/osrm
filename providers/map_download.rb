@@ -32,13 +32,23 @@ def download(exec_action)
     source   node['osrm']['map_data'][new_resource.region]['url']
     backup   false
 
-    # verify checksum, use curl if url is given
-    if node['osrm']['map_data'][new_resource.region]['checksum']
-      if node['osrm']['map_data'][new_resource.region]['checksum'] =~ /^(http|ftp):\/\//
-        checksum %x[curl #{node['osrm']['map_data'][new_resource.region]['checksum']}].split[0]
-      else
-        checksum new_resource.checksum
-      end
+    case new_resource.checksum
+    when false
+      # deactivate checksum checking, when checksum is set to false
+      my_checksum = nil
+    when true
+      # use the default checksum when checksum is set to true
+      my_checksum = node['osrm']['map_data'][new_resource.region]['checksum']
+    else
+      # checksum was manually specified
+      my_checksum = new_resource.checksum
+    end
+
+    # when checksum is a URL, use curl to get its content
+    if my_checksum =~ /^(http|ftp):\/\//
+      checksum %x[curl #{my_checksum}].split[0]
+    else
+      checksum my_checksum
     end
 
     if exec_action == :download_if_missing

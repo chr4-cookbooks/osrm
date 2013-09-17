@@ -20,8 +20,9 @@
 
 def create(exec_action)
   osrm_map_download new_resource.region do
-    path   new_resource.path if new_resource.path
-    user   new_resource.user if new_resource.user
+    path     new_resource.path     if new_resource.path
+    user     new_resource.user     if new_resource.user
+    checksum new_resource.checksum if new_resource.checksum
 
     action :download_if_missing if exec_action == :create_if_missing
   end

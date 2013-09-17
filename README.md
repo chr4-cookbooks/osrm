@@ -35,16 +35,23 @@ osrm_map is a shortcut that calls the other map providers in the following order
 Example
 
     osrm_map 'europe'
-      path            '/srv/my_map_data'  # use the same directory you used in osrm_map_download)
-      profile         'car'               # profile to use (defaults to 'car')
-      profile_dir     '/srv/my_profiles'  # where to look for profiles (.lua files)
-      extract_command 'osrm-extract'      # path to osrm-extract binary
-      prepare_command 'osrm-prepare'      # path to osrm-prepare binary
-      user            'my_osrm_user'      # user to run commands as
-      cwd             '/srv/my_osrm'      # set working directory for osrm-extract
-      threads         5                   # how many threads to use (defaults to number of cpu cores)
-      memory          4                   # how many GB of memory to use (defaults to system memory - 1GB)
+      path            '/srv/my_map_data'  # Use the same directory you used in osrm_map_download)
+      profile         'car'               # Profile to use (defaults to 'car')
+      profile_dir     '/srv/my_profiles'  # Where to look for profiles (.lua files)
+      extract_command 'osrm-extract'      # Path to osrm-extract binary
+      prepare_command 'osrm-prepare'      # Path to osrm-prepare binary
+      user            'my_osrm_user'      # User to run commands as
+      cwd             '/srv/my_osrm'      # Set working directory for osrm-extract
+      threads         5                   # How many threads to use (defaults to number of cpu cores)
+      memory          4                   # How many GB of memory to use (defaults to system memory - 1GB)
       cleanup         false               # Do not cleanup .osrm and .osrm.restrictions after preparing
+
+      # The files checksum can also be checked (defaults to true)
+      # When set to true, it will use the default checksum set in the attributes (if existent)
+      # When set to false, it doesn't check the checksum
+      # When set to an ftp:// or http:// URL, use its contents as a checksum
+      # When set to a string, use it as the checksum
+      checksum        'http://url.to/checksum.md5'
 
       action :create
       action :create_if_missing
@@ -86,6 +93,13 @@ Furthermore, you can specify the following attributes:
     osrm_map_download 'us-west' do
       user 'my_osrm_user'
       path '/srv/my_map_data'
+
+      # The files checksum can also be checked (defaults to true)
+      # When set to true, it will use the default checksum set in the attributes (if existent)
+      # When set to false, it doesn't check the checksum
+      # When set to an ftp:// or http:// URL, use its contents as a checksum
+      # When set to a string, use it as the checksum
+      checksum        'http://url.to/checksum.md5'
     end
 
 
@@ -100,14 +114,14 @@ Example:
 The following attributes are supported
 
     osrm_map_extract 'europe' do
-      path        '/srv/my_map_data'  # use the same directory you used in osrm_map_download)
-      profile     'car'               # profile to use (defaults to 'car')
-      profile_dir '/srv/my_profiles'  # where to look for profiles (.lua files)
-      command     'osrm-extract'      # binary to use
+      path        '/srv/my_map_data'  # Use the same directory you used in osrm_map_download)
+      profile     'car'               # Profile to use (defaults to 'car')
+      profile_dir '/srv/my_profiles'  # Where to look for profiles (.lua files)
+      command     'osrm-extract'      # Binary to use
       user        'my_osrm_user'
-      cwd         '/srv/my_osrm'      # set working directory for osrm-extract
-      threads     5                   # how many threads to use (defaults to number of cpu cores)
-      memory      4                   # how many GB of memory to use (defaults to system memory - 1GB)
+      cwd         '/srv/my_osrm'      # Set working directory for osrm-extract
+      threads     5                   # How many threads to use (defaults to number of cpu cores)
+      memory      4                   # How many GB of memory to use (defaults to system memory - 1GB)
     end
 
 
@@ -122,13 +136,13 @@ Example:
 The following attribtues are supported:
 
     osrm_map_prepare 'europe' do
-      path        '/srv/my_map_data'  # use the same directory you used in osrm_map_download)
-      profile     'car'               # profile to use (defaults to 'car')
-      profile_dir '/srv/my_profiles'  # where to look for profiles (.lua files)
-      command     'osrm-prepare'      # binary to use
+      path        '/srv/my_map_data'  # Use the same directory you used in osrm_map_download)
+      profile     'car'               # Profile to use (defaults to 'car')
+      profile_dir '/srv/my_profiles'  # Where to look for profiles (.lua files)
+      command     'osrm-prepare'      # Binary to use
       user        'my_osrm_user'
-      cwd         '/srv/my_osrm'      # set working directory for osrm-prepare
-      threads     5                   # how many threads to use (defaults to number of cpu cores)
+      cwd         '/srv/my_osrm'      # Set working directory for osrm-prepare
+      threads     5                   # How many threads to use (defaults to number of cpu cores)
       cleanup     false               # Do not cleanup .osrm and .osrm.restrictions after preparing
     end
 
@@ -147,14 +161,14 @@ The following attributes are supported:
       config_dir   '/etc/osrm-routed'
       service_name 'osrm-routed-%s'    # %s will be replaced with the selected region and profile
 
-      profile      'car'               # profile for which to start the daemon
+      profile      'car'               # Profile for which to start the daemon
 
-      user         'osrm-routed'       # user to run the daemon as (will be created if not existent)
-      home         '/my/osrm-install'  # home directory of the osrm-routed user
+      user         'osrm-routed'       # User to run the daemon as (will be created if not existent)
+      home         '/my/osrm-install'  # Home directory of the osrm-routed user
 
       daemon       '/path/to/osrm-routed'
 
-      threads      16                  # how many threads to use (defaults to number of cpu cores)
+      threads      16                  # How many threads to use (defaults to number of cpu cores)
 
       port         5000                # TCP port to bind to
       listen       '127.0.0.1'         # TCP address to listen on
