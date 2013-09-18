@@ -44,8 +44,8 @@ def prepare(exec_action)
   map_stripped_path = map.split('.')[0..-3].join('.')
 
   %w{osrm.edges osrm.fileIndex osrm.hsgr osrm.nodes osrm.ramIndex}.each do |extension|
-    file "#{map_stripped_path}.#{extension}" do
-      action :delete
+    # using rm -f, as file provider is really slow when deleting big files
+    execute "rm -f #{map_stripped_path}.#{extension}" do
       not_if { exec_action == :prepare_if_missing }
     end
   end
@@ -60,8 +60,9 @@ def prepare(exec_action)
 
   # cleanup unneeded files
   if new_resource.cleanup
-    file("#{map_stripped_path}.osrm") { action :delete }
-    file("#{map_stripped_path}.osrm.restrictions") { action :delete }
+    # using rm -f, as file provider is really slow when deleting big files
+    execute "rm -f #{map_stripped_path}.osrm"
+    execute "rm -f #{map_stripped_path}.osrm.restrictions"
   end
 end
 

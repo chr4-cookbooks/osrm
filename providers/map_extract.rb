@@ -64,8 +64,8 @@ def extract(exec_action)
   map_stripped_path = map.split('.')[0..-3].join('.')
 
   %w{osrm osrm.names osrm.restrictions}.each do |extension|
-    file "#{map_stripped_path}.#{extension}" do
-      action :delete
+    # using rm -f, as file provider is really slow when deleting big files
+    execute "rm -f #{map_stripped_path}.#{extension}" do
       not_if { exec_action == :extract_if_missing }
     end
   end
