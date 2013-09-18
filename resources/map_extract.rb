@@ -28,8 +28,8 @@ attribute :profile_dir, kind_of: String
 attribute :command,     kind_of: String
 attribute :cwd,         kind_of: String
 attribute :timeout,     kind_of: Integer, default: 3600 * 24 # 1 day
-attribute :threads,     kind_of: String,  default: node['cpu']['total']
-attribute :memory,      kind_of: String,  default: node['memory']['total'].to_i / 1024 / 1024 - 1 # in GB, leave 1gb for system
+attribute :threads,     kind_of: String,  default: node['osrm']['threads']
+attribute :memory,      kind_of: String,  default: node['osrm']['memory']
 attribute :stxxl_size,  kind_of: Integer, default: 10240
 attribute :stxxl_file,  kind_of: String
 attribute :user,        kind_of: String

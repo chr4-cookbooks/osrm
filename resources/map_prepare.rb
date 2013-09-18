@@ -28,6 +28,6 @@ attribute :profile_dir, kind_of: String
 attribute :command,     kind_of: String
 attribute :cwd,         kind_of: String
 attribute :user,        kind_of: String
-attribute :threads,     kind_of: String,  default: node['cpu']['total']
+attribute :threads,     kind_of: String,  default: node['osrm']['threads']
 attribute :timeout,     kind_of: Integer, default: 3600 * 24 # 1 day
 attribute :cleanup,     kind_of: [ TrueClass, FalseClass ], default: true
