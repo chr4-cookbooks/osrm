@@ -19,7 +19,10 @@
 #
 
 def download(exec_action)
-  path = "#{new_resource.path}/#{new_resource.region}/#{::File.basename(node['osrm']['map_data'][new_resource.region]['url'])}"
+  # set default variables, as overridden node attributes are not available in resource
+  base_path = new_resource.path || node['osrm']['map_path']
+
+  path = "#{base_path}/#{new_resource.region}/#{::File.basename(node['osrm']['map_data'][new_resource.region]['url'])}"
 
   directory ::File.dirname(path) do
     mode      00755

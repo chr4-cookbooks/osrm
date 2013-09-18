@@ -19,8 +19,13 @@
 #
 
 def prepare(exec_action)
+  # set default variables, as overridden node attributes are not available in resource
+  profile_dir = new_resource.profile_dir || "#{node['osrm']['target']}/profiles"
+  command     = new_resource.command     || "#{node['osrm']['target']}/build/osrm-prepare"
+  cwd         = new_resource.cwd         || "#{node['osrm']['target']}/build"
+
   # create contractor.ini
-  template "#{new_resource.cwd}/contractor.ini" do
+  template "#{cwd}/contractor.ini" do
     mode      00644
     owner     new_resource.user if new_resource.user
     source    'contractor.ini.erb'
@@ -45,9 +50,9 @@ def prepare(exec_action)
 
   execute "osrm-#{new_resource.region}-#{new_resource.profile}-prepare" do
     user    new_resource.user if new_resource.user
-    cwd     new_resource.cwd  if new_resource.cwd
+    cwd     cwd
     timeout new_resource.timeout
-    command "#{new_resource.command} #{map_stripped_path}.osrm #{map_stripped_path}.osrm.restrictions #{new_resource.profile_dir}/#{new_resource.profile}.lua"
+    command "#{command} #{map_stripped_path}.osrm #{map_stripped_path}.osrm.restrictions #{profile_dir}/#{new_resource.profile}.lua"
     not_if  { ::File.exists?("#{map_stripped_path}.osrm.edges") }
   end
 

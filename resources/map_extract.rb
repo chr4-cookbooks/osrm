@@ -24,9 +24,9 @@ default_action :extract
 attribute :region,      kind_of: String,  name_attribute: true
 attribute :path,        kind_of: String,  default: node['osrm']['map_path']
 attribute :profile,     kind_of: String,  default: 'car'
-attribute :profile_dir, kind_of: String,  default: "#{node['osrm']['target']}/profiles"
-attribute :command,     kind_of: String,  default: "#{node['osrm']['target']}/build/osrm-extract"
-attribute :cwd,         kind_of: String,  default: "#{node['osrm']['target']}/build"
+attribute :profile_dir, kind_of: String
+attribute :command,     kind_of: String
+attribute :cwd,         kind_of: String
 attribute :timeout,     kind_of: Integer, default: 3600 * 24 # 1 day
 attribute :threads,     kind_of: String,  default: node['cpu']['total']
 attribute :memory,      kind_of: String,  default: node['memory']['total'].to_i / 1024 / 1024 - 1 # in GB, leave 1gb for system

@@ -19,8 +19,13 @@
 #
 
 def extract(exec_action)
+  # set default variables, as overridden node attributes are not available in resource
+  profile_dir = new_resource.profile_dir || "#{node['osrm']['target']}/profiles"
+  command     = new_resource.command     || "#{node['osrm']['target']}/build/osrm-extract"
+  cwd         = new_resource.cwd         || "#{node['osrm']['target']}/build"
+
   # create extractor.ini
-  template "#{new_resource.cwd}/extractor.ini" do
+  template "#{cwd}/extractor.ini" do
     mode      00644
     owner     new_resource.user if new_resource.user
     source    'extractor.ini.erb'
@@ -30,7 +35,7 @@ def extract(exec_action)
   end
 
   # set preferences for stxxl
-  template "#{new_resource.cwd}/.stxxl" do
+  file "#{cwd}/.stxxl" do
     mode    00644
     owner   new_resource.user if new_resource.user
     content "disk=#{new_resource.stxxl_file},#{new_resource.stxxl_size},syscall\n"
@@ -75,9 +80,9 @@ def extract(exec_action)
 
   execute "osrm-#{new_resource.region}-#{new_resource.profile}-extract" do
     user    new_resource.user if new_resource.user
-    cwd     new_resource.cwd  if new_resource.cwd
+    cwd     cwd
     timeout new_resource.timeout
-    command "#{new_resource.command} #{map} #{new_resource.profile_dir}/#{new_resource.profile}.lua"
+    command "#{command} #{map} #{profile_dir}/#{new_resource.profile}.lua"
     not_if  { ::File.exists?("#{map_stripped_path}.osrm.names") }
   end
 end
