@@ -24,15 +24,6 @@ default['osrm']['branch'] = 'master'
 default['osrm']['target'] = '/opt/osrm'
 default['osrm']['map_path'] = '/opt/osrm-data'
 
+# use system memory - 1GB by default
+default['osrm']['memory'] = node['memory']['total'].to_i / 1024 / 1024 - 1
 default['osrm']['threads'] = node['cpu']['total']
-
-# system memory in GB
-system_mem = node['memory']['total'].to_i / 1024 / 1024
-
-# use system memory - 5GB by default
-# if less then 10GB is available, use system memory - 1GB
-if system_mem > 10
-  default['osrm']['memory'] = system_mem - 5
-else
-  default['osrm']['memory'] = system_mem - 1
-end
