@@ -36,6 +36,7 @@ def create(exec_action)
     cwd         new_resource.cwd             if new_resource.cwd
     threads     new_resource.threads         if new_resource.threads
     memory      new_resource.memory          if new_resource.memory
+    timeout     new_resource.timeout         if new_resource.timeout
 
     action :extract_if_missing if exec_action == :create_if_missing
   end
@@ -49,6 +50,7 @@ def create(exec_action)
     cwd         new_resource.cwd             if new_resource.cwd
     threads     new_resource.threads         if new_resource.threads
     cleanup     new_resource.cleanup         if new_resource.cleanup
+    timeout     new_resource.timeout         if new_resource.timeout
 
     action :prepare_if_missing if exec_action == :create_if_missing
   end

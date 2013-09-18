@@ -62,6 +62,7 @@ def extract(exec_action)
   execute "osrm-#{new_resource.region}-#{new_resource.profile}-extract" do
     user    new_resource.user if new_resource.user
     cwd     new_resource.cwd  if new_resource.cwd
+    timeout new_resource.timeout
     command "#{new_resource.command} #{map} #{new_resource.profile_dir}/#{new_resource.profile}.lua"
     not_if  { ::File.exists?("#{map_stripped_path}.osrm.names") }
   end
