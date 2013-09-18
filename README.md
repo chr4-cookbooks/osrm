@@ -45,6 +45,9 @@ Example
       threads         5                   # How many threads to use (defaults to number of cpu cores)
       memory          4                   # How many GB of memory to use (defaults to system memory - 1GB)
       cleanup         false               # Do not cleanup .osrm and .osrm.restrictions after preparing
+      timeout         3600                # Timeout in seconds for osrm-extract/osrm-prepare. Defaults to 24h
+      stxxl_size      150000              # Size (in MB) of stxxl temporary file. Dynamically allocated by default
+      stxxl_file      '/tmp/stxxl'        # Location of stxxl temporary file. Defaults to '/var/tmp/stxxl'
 
       # The files checksum can also be checked (defaults to true)
       # When set to true, it will use the default checksum set in the attributes (if existent)
@@ -122,6 +125,9 @@ The following attributes are supported
       cwd         '/srv/my_osrm'      # Set working directory for osrm-extract
       threads     5                   # How many threads to use (defaults to number of cpu cores)
       memory      4                   # How many GB of memory to use (defaults to system memory - 1GB)
+      timeout     3600                # Timeout in seconds for osrm-extract. Defaults to 24h
+      stxxl_size  150000              # Size (in MB) of stxxl temporary file. Dynamically allocated by default
+      stxxl_file  '/tmp/stxxl'        # Location of stxxl temporary file. Defaults to '/var/tmp/stxxl'
     end
 
 
@@ -144,6 +150,7 @@ The following attribtues are supported:
       cwd         '/srv/my_osrm'      # Set working directory for osrm-prepare
       threads     5                   # How many threads to use (defaults to number of cpu cores)
       cleanup     false               # Do not cleanup .osrm and .osrm.restrictions after preparing
+      timeout     3600                # Timeout in seconds for osrm-extract. Defaults to 24h
     end
 
 
@@ -187,6 +194,11 @@ node['osrm']['branch'] = 'master' # use e.g. 'v0.3.5' for a stable version
 
 node['osrm']['target'] = '/opt/osrm'
 node['osrm']['map_path'] = '/opt/osrm-data'
+
+# use system memory - 1GB by default
+node['osrm']['memory'] = node['memory']['total'].to_i / 1024 / 1024 - 1
+node['osrm']['threads'] = node['cpu']['total']
+
 ```
 
 ## routed

@@ -6,6 +6,7 @@ This file is used to list changes made in each version of the osrm cookbook.
 0.1.2
 -----
 
+- Attribute default for cleanup set to false [map_prepare]
 - Add configuration settings for stxxl
 - Attributes overriden in wrapper cookbooks are now evaluated correctly
 - Use execute "rm -f" instead of file() { action :delete } for performance reasons
