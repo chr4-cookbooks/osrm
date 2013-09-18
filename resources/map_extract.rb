@@ -22,14 +22,14 @@ actions        :extract, :extract_if_missing
 default_action :extract
 
 attribute :region,      kind_of: String,  name_attribute: true
-attribute :path,        kind_of: String,  default: node['osrm']['map_path']
+attribute :path,        kind_of: String
 attribute :profile,     kind_of: String,  default: 'car'
 attribute :profile_dir, kind_of: String
 attribute :command,     kind_of: String
 attribute :cwd,         kind_of: String
 attribute :timeout,     kind_of: Integer, default: 3600 * 24 # 1 day
-attribute :threads,     kind_of: String,  default: node['osrm']['threads']
-attribute :memory,      kind_of: String,  default: node['osrm']['memory']
+attribute :threads,     kind_of: String
+attribute :memory,      kind_of: String
 attribute :stxxl_size,  kind_of: Integer, default: 10240
 attribute :stxxl_file,  kind_of: String
 attribute :user,        kind_of: String

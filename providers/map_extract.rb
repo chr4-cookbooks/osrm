@@ -20,9 +20,12 @@
 
 def extract(exec_action)
   # set default variables, as overridden node attributes are not available in resource
+  path        = new_resource.path        || node['osrm']['map_path']
   profile_dir = new_resource.profile_dir || "#{node['osrm']['target']}/profiles"
   command     = new_resource.command     || "#{node['osrm']['target']}/build/osrm-extract"
   cwd         = new_resource.cwd         || "#{node['osrm']['target']}/build"
+  threads     = new_resource.threads     || node['osrm']['threads']
+  memory      = new_resource.memory      || node['osrm']['memory']
 
   # create extractor.ini
   template "#{cwd}/extractor.ini" do
@@ -30,8 +33,8 @@ def extract(exec_action)
     owner     new_resource.user if new_resource.user
     source    'extractor.ini.erb'
     cookbook  'osrm'
-    variables :memory  => new_resource.memory,
-              :threads => new_resource.threads
+    variables :memory  => memory,
+              :threads => threads
   end
 
   # set preferences for stxxl
@@ -43,7 +46,7 @@ def extract(exec_action)
   end
 
   map = [
-    node['osrm']['map_path'], new_resource.region, new_resource.profile,
+    path, new_resource.region, new_resource.profile,
     ::File.basename(node['osrm']['map_data'][new_resource.region]['url']),
   ].join('/')
 

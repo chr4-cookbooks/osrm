@@ -19,10 +19,18 @@
 #
 
 action :create do
-  config_file  = "#{new_resource.config_dir}/#{new_resource.region}-#{new_resource.profile}.conf"
-  service_name = new_resource.service_name % "#{new_resource.region}-#{new_resource.profile}"
+  # set default variables, as overridden node attributes are not available in resource
+  config_dir   = new_resource.config_dir   || node['osrm']['routed']['config_dir']
+  service_name = new_resource.service_name || node['osrm']['routed']['service_name']
+  user         = new_resource.user         || node['osrm']['routed']['user']
+  home         = new_resource.home         || node['osrm']['target']
+  daemon       = new_resource.daemon       || "#{node['osrm']['target']}/build/osrm-routed"
+  threads      = new_resource.threads      || node['osrm']['threads']
 
-  directory new_resource.config_dir do
+  config_file  = "#{config_dir}/#{new_resource.region}-#{new_resource.profile}.conf"
+  service_name = service_name % "#{new_resource.region}-#{new_resource.profile}"
+
+  directory config_dir do
     mode 00755
   end
 
@@ -38,14 +46,14 @@ action :create do
     mode      00644
     source    'server.ini.erb'
     cookbook  'osrm'
-    variables threads: new_resource.threads,
+    variables threads: threads,
               listen:  new_resource.listen,
               port:    new_resource.port,
               data:    "#{map_stripped_path}"
   end
 
-  user new_resource.user do
-    home   new_resource.home
+  user user do
+    home   home
     shell  '/bin/false'
     system true
   end
@@ -57,8 +65,8 @@ action :create do
     source    'upstart.conf.erb'
     cookbook  'osrm'
     variables :description => 'OSRM route daemon',
-              :daemon      => "#{new_resource.daemon} #{config_file}",
-              :user        => new_resource.user
+              :daemon      => "#{daemon} #{config_file}",
+              :user        => user
   end
 
   link "/etc/init.d/#{service_name}" do
@@ -76,8 +84,8 @@ end
 
 
 action :delete do
-  config_file  = "#{new_resource.config_dir}/#{new_resource.region}-#{new_resource.profile}.conf"
-  service_name = new_resource.service_name % "#{new_resource.region}-#{new_resource.profile}"
+  config_file  = "#{config_dir}/#{new_resource.region}-#{new_resource.profile}.conf"
+  service_name = service_name % "#{new_resource.region}-#{new_resource.profile}"
 
   service(service_name) { action :stop }
 

@@ -20,9 +20,11 @@
 
 def prepare(exec_action)
   # set default variables, as overridden node attributes are not available in resource
+  path        = new_resource.path        || node['osrm']['map_path']
   profile_dir = new_resource.profile_dir || "#{node['osrm']['target']}/profiles"
   command     = new_resource.command     || "#{node['osrm']['target']}/build/osrm-prepare"
   cwd         = new_resource.cwd         || "#{node['osrm']['target']}/build"
+  threads     = new_resource.threads     || node['osrm']['threads']
 
   # create contractor.ini
   template "#{cwd}/contractor.ini" do
@@ -30,11 +32,11 @@ def prepare(exec_action)
     owner     new_resource.user if new_resource.user
     source    'contractor.ini.erb'
     cookbook  'osrm'
-    variables :threads => new_resource.threads
+    variables :threads => threads
   end
 
   map = [
-    node['osrm']['map_path'], new_resource.region, new_resource.profile,
+    path, new_resource.region, new_resource.profile,
     ::File.basename(node['osrm']['map_data'][new_resource.region]['url']),
   ].join('/')
 
