@@ -30,4 +30,6 @@ attribute :cwd,         kind_of: String,  default: "#{node['osrm']['target']}/bu
 attribute :timeout,     kind_of: Integer, default: 3600 * 24 # 1 day
 attribute :threads,     kind_of: String,  default: node['cpu']['total']
 attribute :memory,      kind_of: String,  default: node['memory']['total'].to_i / 1024 / 1024 - 1 # in GB, leave 1gb for system
+attribute :stxxl_size,  kind_of: Integer, default: 10240
+attribute :stxxl_file,  kind_of: String
 attribute :user,        kind_of: String

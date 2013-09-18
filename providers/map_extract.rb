@@ -29,6 +29,14 @@ def extract(exec_action)
               :threads => new_resource.threads
   end
 
+  # set preferences for stxxl
+  template "#{new_resource.cwd}/.stxxl" do
+    mode    00644
+    owner   new_resource.user if new_resource.user
+    content "disk=#{new_resource.stxxl_file},#{new_resource.stxxl_size},syscall\n"
+    only_if { new_resource.stxxl_file }
+  end
+
   map = [
     node['osrm']['map_path'], new_resource.region, new_resource.profile,
     ::File.basename(node['osrm']['map_data'][new_resource.region]['url']),
@@ -57,7 +65,13 @@ def extract(exec_action)
   # remove temporary file (will add up if not deleted)
   # using execute provider, as file() { action :delete }
   # is really slow with big files
-  execute 'rm -f /var/tmp/stxxl'
+  execute 'remove stxxl temporary file from previous extracts' do
+    if new_resource.stxxl_file
+      command "rm -f #{new_resource.stxxl_file}"
+    else
+      command 'rm -f /var/tmp/stxxl'
+    end
+  end
 
   execute "osrm-#{new_resource.region}-#{new_resource.profile}-extract" do
     user    new_resource.user if new_resource.user

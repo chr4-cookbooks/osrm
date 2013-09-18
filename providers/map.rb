@@ -37,6 +37,8 @@ def create(exec_action)
     threads     new_resource.threads         if new_resource.threads
     memory      new_resource.memory          if new_resource.memory
     timeout     new_resource.timeout         if new_resource.timeout
+    stxxl_file  new_resource.stxxl_file      if new_resource.stxxl_file
+    stxxl_size  new_resource.stxxl_size      if new_resource.stxxl_size
 
     action :extract_if_missing if exec_action == :create_if_missing
   end
