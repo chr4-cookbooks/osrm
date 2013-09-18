@@ -30,4 +30,4 @@ attribute :cwd,         kind_of: String
 attribute :user,        kind_of: String
 attribute :threads,     kind_of: String
 attribute :timeout,     kind_of: Integer, default: 3600 * 24 # 1 day
-attribute :cleanup,     kind_of: [ TrueClass, FalseClass ], default: true
+attribute :cleanup,     kind_of: [ TrueClass, FalseClass ], default: false
