@@ -70,17 +70,6 @@ def extract(exec_action)
     end
   end
 
-  # remove temporary file (will add up if not deleted)
-  # using execute provider, as file() { action :delete }
-  # is really slow with big files
-  execute 'remove stxxl temporary file from previous extracts' do
-    if new_resource.stxxl_file
-      command "rm -f #{new_resource.stxxl_file}"
-    else
-      command 'rm -f /var/tmp/stxxl'
-    end
-  end
-
   execute "osrm-#{new_resource.region}-#{new_resource.profile}-extract" do
     user    new_resource.user if new_resource.user
     cwd     cwd
@@ -88,6 +77,10 @@ def extract(exec_action)
     command "#{command} #{map} #{profile_dir}/#{new_resource.profile}.lua"
     not_if  { ::File.exists?("#{map_stripped_path}.osrm.names") }
   end
+
+  # remove temporary file.
+  # using rm -f, as file provider is really slow when deleting big files
+  execute "rm -f #{new_resource.stxxl_file}"
 end
 
 action :extract do
