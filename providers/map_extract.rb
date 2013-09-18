@@ -42,7 +42,7 @@ def extract(exec_action)
     mode    00644
     owner   new_resource.user if new_resource.user
     content "disk=#{new_resource.stxxl_file},#{new_resource.stxxl_size},syscall\n"
-    only_if { new_resource.stxxl_file }
+    only_if { new_resource.stxxl_size }
   end
 
   map = [

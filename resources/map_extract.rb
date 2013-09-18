@@ -30,6 +30,6 @@ attribute :cwd,         kind_of: String
 attribute :timeout,     kind_of: Integer, default: 3600 * 24 # 1 day
 attribute :threads,     kind_of: String
 attribute :memory,      kind_of: String
-attribute :stxxl_size,  kind_of: Integer, default: 10240
-attribute :stxxl_file,  kind_of: String
+attribute :stxxl_size,  kind_of: Integer
+attribute :stxxl_file,  kind_of: String,  default: '/var/tmp/stxxl'
 attribute :user,        kind_of: String
