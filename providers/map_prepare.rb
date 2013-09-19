@@ -58,7 +58,7 @@ def prepare(exec_action)
     not_if  { ::File.exists?("#{map_stripped_path}.osrm.edges") }
   end
 
-  # cleanup unneeded files
+  # cleanup previously extracted files (not needed anymore)
   if new_resource.cleanup
     # using rm -f, as file provider is really slow when deleting big files
     execute "rm -f #{map_stripped_path}.osrm"
