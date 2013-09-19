@@ -84,6 +84,10 @@ end
 
 
 action :delete do
+  # set default variables, as overridden node attributes are not available in resource
+  config_dir   = new_resource.config_dir   || node['osrm']['routed']['config_dir']
+  service_name = new_resource.service_name || node['osrm']['routed']['service_name']
+
   config_file  = "#{config_dir}/#{new_resource.region}-#{new_resource.profile}.conf"
   service_name = service_name % "#{new_resource.region}-#{new_resource.profile}"
 
@@ -91,4 +95,13 @@ action :delete do
 
   file("/etc/init/#{service_name}.conf") { action :delete }
   file("/etc/init.d/#{service_name}") { action :delete }
+
+  file(config_file) { action :delete }
+
+  directory config_dir do
+    action :delete
+
+    # only if empty
+    only_if { Dir.entries(config_dir).size == 2 }
+  end
 end
