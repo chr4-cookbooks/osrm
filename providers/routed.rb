@@ -20,7 +20,7 @@
 
 action :create do
   # set default variables, as overridden node attributes are not available in resource
-  config_dir   = new_resource.config_dir   || node['osrm']['routed']['config_dir']
+  config_dir   = new_resource.config_dir   || node['osrm']['routed']['config_dir']
   service_name = new_resource.service_name || node['osrm']['routed']['service_name']
   user         = new_resource.user         || node['osrm']['routed']['user']
   home         = new_resource.home         || node['osrm']['target']
