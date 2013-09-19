@@ -18,10 +18,15 @@ This file is used to list changes made in each version of the osrm cookbook.
 
   This is necessary for extract/prepare tasks that take longer than 1h.
 
+- Added chefspecs
+- Several small bugfixes
+
+
 0.1.1
 -----
 
 - Small bugfixes
+
 
 0.1.0
 -----
