@@ -19,7 +19,7 @@ Runs install_git
 
 ## install_git
 
-Installs the latest [Project-OSRM](https://github.com/DennisOSRM/Project-OSRM) to ```node['osrm']['target']``` (default ```/opt/osrm```).
+Clone and install the latest HEAD from [Project-OSRM](https://github.com/DennisOSRM/Project-OSRM) to ```node['osrm']['target']``` (default ```/opt/osrm```).
 
 
 # Providers
@@ -32,7 +32,11 @@ osrm_map is a shortcut that calls the other map providers in the following order
 * osrm_map_extract
 * osrm_prepare
 
-Example
+This example downloads, extracts and prepares the osrm map for Germany:
+
+    osrm_map 'germany'
+
+The following additional attributes are allowed:
 
     osrm_map 'europe'
       path            '/srv/my_map_data'  # Use the same directory you used in osrm_map_download)
@@ -52,24 +56,11 @@ Example
       # The files checksum can also be checked (defaults to true)
       # When set to true, it will use the default checksum set in the attributes (if existent)
       # When set to false, it doesn't check the checksum
-      # When set to an ftp:// or http:// URL, use its contents as a checksum
+      # When set to an ftp:// or http:// URL, retrieve the file and use the checksum in its content
       # When set to a string, use it as the checksum
       checksum        'http://url.to/checksum.md5'
 
-      action :create
-      action :create_if_missing
-    end
-
-    osrm_map_download 'europe' do
-      action :download_if_missing
-    end
-
-    osrm_map_extract 'europe' do
-      action :extract_if_missing
-    end
-
-    osrm_map_prepare 'europe' do
-      action :prepare_if_missing
+      action :create_if_missing           # :create and :create_if_missing are supported
     end
 
 
