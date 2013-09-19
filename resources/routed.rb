@@ -23,11 +23,11 @@ default_action :create
 
 attribute :region,       kind_of: String,  name_attribute: true
 attribute :profile,      kind_of: String,  default: 'car'
-attribute :config_dir,   kind_of: String,  default: node['osrm']['routed']['config_dir']
-attribute :service_name, kind_of: String,  default: node['osrm']['routed']['service_name']
-attribute :user,         kind_of: String,  default: node['osrm']['routed']['user']
-attribute :home,         kind_of: String,  default: node['osrm']['target']
-attribute :daemon,       kind_of: String,  default: "#{node['osrm']['target']}/build/osrm-routed"
-attribute :threads,      kind_of: String,  default: node['cpu']['total']
+attribute :config_dir,   kind_of: String
+attribute :service_name, kind_of: String
+attribute :user,         kind_of: String
+attribute :home,         kind_of: String
+attribute :daemon,       kind_of: String
+attribute :threads,      kind_of: String
 attribute :listen,       kind_of: String,  default: '127.0.0.1'
 attribute :port,         kind_of: Integer, default: 5000
