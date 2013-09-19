@@ -10,7 +10,7 @@ describe 'osrm_test::map_download_if_missing' do
     runner.converge 'osrm_test::map_download_if_missing'
   end
 
-  it 'create data directory for region' do
+  it 'should create data directory for region' do
     expect(chef_run).to create_directory '/opt/osrm-data/europe'
   end
 
