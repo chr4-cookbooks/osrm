@@ -5,7 +5,7 @@ describe 'osrm_test::map_download_if_missing' do
   let(:chef_run) do
     runner = ChefSpec::ChefRunner.new(step_into: [ 'osrm_map_download' ]) do |node|
       node.set['cpu']['total'] = 2
-      node.set['memory']['total'] = 4094 * 1024 * 1024
+      node.set['memory']['total'] = 4096 * 1024
     end
     runner.converge 'osrm_test::map_download_if_missing'
   end

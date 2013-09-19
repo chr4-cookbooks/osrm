@@ -5,7 +5,7 @@ describe 'osrm::install_git' do
   let(:chef_run) do
     runner = ChefSpec::ChefRunner.new do |node|
       node.set['cpu']['total'] = 2
-      node.set['memory']['total'] = 4094 * 1024 * 1024
+      node.set['memory']['total'] = 4096 * 1024
     end
     runner.converge 'osrm::install_git'
   end
