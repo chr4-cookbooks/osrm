@@ -74,7 +74,7 @@ action :create do
   end
 
   service service_name do
-    supports   restart: true
+    supports   restart: true, status: true
     subscribes :restart, "template[#{config_file}]"
     subscribes :restart, "template[#{config_file}]"
 
