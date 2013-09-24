@@ -3,6 +3,12 @@ osrm CHANGELOG
 
 This file is used to list changes made in each version of the osrm cookbook.
 
+0.1.3
+-----
+
+- Use status option of routed service, prevents trying to restart a already running routed
+
+
 0.1.2
 -----
 
