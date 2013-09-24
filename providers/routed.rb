@@ -64,9 +64,9 @@ action :create do
     mode      00644
     source    'upstart.conf.erb'
     cookbook  'osrm'
-    variables :description => 'OSRM route daemon',
-              :daemon      => "#{daemon} #{config_file}",
-              :user        => user
+    variables description: 'OSRM route daemon',
+              daemon:      "#{daemon} #{config_file}",
+              user:        user
   end
 
   link "/etc/init.d/#{service_name}" do
@@ -74,7 +74,7 @@ action :create do
   end
 
   service service_name do
-    supports :restart => true
+    supports   restart: true
     subscribes :restart, "template[#{config_file}]"
     subscribes :restart, "template[#{config_file}]"
 

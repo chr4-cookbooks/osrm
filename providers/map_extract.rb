@@ -33,8 +33,8 @@ def extract(exec_action)
     owner     new_resource.user if new_resource.user
     source    'extractor.ini.erb'
     cookbook  'osrm'
-    variables :memory  => memory,
-              :threads => threads
+    variables memory:  memory,
+              threads: threads
   end
 
   # set preferences for stxxl

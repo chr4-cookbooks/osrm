@@ -32,7 +32,7 @@ def prepare(exec_action)
     owner     new_resource.user if new_resource.user
     source    'contractor.ini.erb'
     cookbook  'osrm'
-    variables :threads => threads
+    variables threads: threads
   end
 
   map = [
