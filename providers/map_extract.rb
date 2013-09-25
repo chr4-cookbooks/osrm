@@ -20,12 +20,16 @@
 
 def extract(exec_action)
   # set default variables, as overridden node attributes are not available in resource
-  path        = new_resource.path        || node['osrm']['map_path']
+  map_dir     = new_resource.map_dir     || node['osrm']['map_dir']
   profile_dir = new_resource.profile_dir || "#{node['osrm']['target']}/profiles"
   command     = new_resource.command     || "#{node['osrm']['target']}/build/osrm-extract"
   cwd         = new_resource.cwd         || "#{node['osrm']['target']}/build"
   threads     = new_resource.threads     || node['osrm']['threads']
   memory      = new_resource.memory      || node['osrm']['memory']
+  map         = new_resource.map         || [
+    map_dir, new_resource.region, new_resource.profile,
+    ::File.basename(node['osrm']['map_data'][new_resource.region]['url']),
+  ].join('/')
 
   # create extractor.ini
   template "#{cwd}/extractor.ini" do
@@ -45,19 +49,14 @@ def extract(exec_action)
     only_if { new_resource.stxxl_size }
   end
 
-  map = [
-    path, new_resource.region, new_resource.profile,
-    ::File.basename(node['osrm']['map_data'][new_resource.region]['url']),
-  ].join('/')
-
   directory ::File.dirname(map) do
     mode  00755
     owner new_resource.user if new_resource.user
   end
 
   # symlink region map to profile
-  link map do
-    to [ node['osrm']['map_path'], new_resource.region, ::File.basename(map) ].join('/')
+  link [ map_dir, new_resource.region, new_resource.profile, ::File.basename(map) ].join('/') do
+    to map
   end
 
   # remove .osm.bpf/.osm.bz2

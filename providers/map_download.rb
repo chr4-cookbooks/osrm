@@ -20,9 +20,10 @@
 
 def download(exec_action)
   # set default variables, as overridden node attributes are not available in resource
-  base_path = new_resource.path || node['osrm']['map_path']
+  map_dir = new_resource.map_dir || node['osrm']['map_dir']
+  url     = new_resource.url     || node['osrm']['map_data'][new_resource.region]['url']
 
-  path = "#{base_path}/#{new_resource.region}/#{::File.basename(node['osrm']['map_data'][new_resource.region]['url'])}"
+  path = "#{map_dir}/#{new_resource.region}/#{::File.basename(url)}"
 
   directory ::File.dirname(path) do
     mode      00755
@@ -32,7 +33,7 @@ def download(exec_action)
 
   remote_file path do
     owner    new_resource.user if new_resource.user
-    source   node['osrm']['map_data'][new_resource.region]['url']
+    source   url
     backup   false
 
     case new_resource.checksum
@@ -64,7 +65,7 @@ def download(exec_action)
   # check whether a new version is available
   http_request "osrm-#{new_resource.region}-download" do
     message ''
-    url node['osrm']['map_data'][new_resource.region]['url']
+    url url
 
     if ::File.exists?(path)
       headers 'If-Modified-Since' => ::File.mtime(path).httpdate

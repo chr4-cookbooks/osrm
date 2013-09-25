@@ -22,10 +22,15 @@ action :create do
   # set default variables, as overridden node attributes are not available in resource
   config_dir   = new_resource.config_dir   || node['osrm']['routed']['config_dir']
   service_name = new_resource.service_name || node['osrm']['routed']['service_name']
+  map_dir      = new_resource.map_dir      || node['osrm']['map_dir']
   user         = new_resource.user         || node['osrm']['routed']['user']
   home         = new_resource.home         || node['osrm']['target']
   daemon       = new_resource.daemon       || "#{node['osrm']['target']}/build/osrm-routed"
   threads      = new_resource.threads      || node['osrm']['threads']
+  map          = new_resource.map          || [
+    map_dir, new_resource.region, new_resource.profile,
+    ::File.basename(node['osrm']['map_data'][new_resource.region]['url']),
+  ].join('/')
 
   config_file  = "#{config_dir}/#{new_resource.region}-#{new_resource.profile}.conf"
   service_name = service_name % "#{new_resource.region}-#{new_resource.profile}"
@@ -33,11 +38,6 @@ action :create do
   directory config_dir do
     mode 00755
   end
-
-  map = [
-    node['osrm']['map_path'], new_resource.region, new_resource.profile,
-    ::File.basename(node['osrm']['map_data'][new_resource.region]['url']),
-  ].join('/')
 
   # remove .osm.bpf/.osm.bz2
   map_stripped_path = map.split('.')[0..-3].join('.')

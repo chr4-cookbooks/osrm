@@ -20,15 +20,20 @@
 
 def create(exec_action)
   osrm_map_download new_resource.region do
-    path     new_resource.path     if new_resource.path
+    map_dir  new_resource.map_dir  if new_resource.map_dir
+    url      new_resource.map      if new_resource.map
     user     new_resource.user     if new_resource.user
     checksum new_resource.checksum if new_resource.checksum
 
     action :download_if_missing if exec_action == :create_if_missing
+
+    # only download if map is on the internet
+    only_if { new_resource.map =~ /^(http|ftp):\/\// }
   end
 
   osrm_map_extract new_resource.region do
-    path        new_resource.path            if new_resource.path
+    map_dir     new_resource.map_dir         if new_resource.map_dir
+    map         new_resource.map             if new_resource.map
     profile     new_resource.profile         if new_resource.profile
     profile_dir new_resource.profile_dir     if new_resource.profile_dir
     command     new_resource.extract_command if new_resource.extract_command
@@ -44,7 +49,8 @@ def create(exec_action)
   end
 
   osrm_map_prepare new_resource.region do
-    path        new_resource.path            if new_resource.path
+    map_dir     new_resource.map_dir         if new_resource.map_dir
+    map         new_resource.map             if new_resource.map
     profile     new_resource.profile         if new_resource.profile
     profile_dir new_resource.profile_dir     if new_resource.profile_dir
     command     new_resource.prepare_command if new_resource.prepare_command

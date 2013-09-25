@@ -20,11 +20,15 @@
 
 def prepare(exec_action)
   # set default variables, as overridden node attributes are not available in resource
-  path        = new_resource.path        || node['osrm']['map_path']
+  map_dir     = new_resource.map_dir     || node['osrm']['map_dir']
   profile_dir = new_resource.profile_dir || "#{node['osrm']['target']}/profiles"
   command     = new_resource.command     || "#{node['osrm']['target']}/build/osrm-prepare"
   cwd         = new_resource.cwd         || "#{node['osrm']['target']}/build"
   threads     = new_resource.threads     || node['osrm']['threads']
+  map         = new_resource.map         || [
+    map_dir, new_resource.region, new_resource.profile,
+    ::File.basename(node['osrm']['map_data'][new_resource.region]['url']),
+  ].join('/')
 
   # create contractor.ini
   template "#{cwd}/contractor.ini" do
@@ -34,11 +38,6 @@ def prepare(exec_action)
     cookbook  'osrm'
     variables threads: threads
   end
-
-  map = [
-    path, new_resource.region, new_resource.profile,
-    ::File.basename(node['osrm']['map_data'][new_resource.region]['url']),
-  ].join('/')
 
   # remove .osm.bpf/.osm.bz2
   map_stripped_path = map.split('.')[0..-3].join('.')

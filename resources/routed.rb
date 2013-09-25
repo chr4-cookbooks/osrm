@@ -23,6 +23,8 @@ default_action :create
 
 attribute :region,       kind_of: String,  name_attribute: true
 attribute :profile,      kind_of: String,  default: 'car'
+attribute :map_dir,      kind_of: String
+attribute :map,          kind_of: String
 attribute :config_dir,   kind_of: String
 attribute :service_name, kind_of: String
 attribute :user,         kind_of: String

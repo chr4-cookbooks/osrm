@@ -22,7 +22,8 @@ actions        :create, :create_if_missing
 default_action :create
 
 attribute :region,          kind_of: String, name_attribute: true
-attribute :path,            kind_of: String
+attribute :map_dir,         kind_of: String
+attribute :map,             kind_of: String
 attribute :user,            kind_of: String
 attribute :profile,         kind_of: String
 attribute :profile_dir,     kind_of: String
