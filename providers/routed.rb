@@ -27,10 +27,11 @@ action :create do
   home         = new_resource.home         || node['osrm']['target']
   daemon       = new_resource.daemon       || "#{node['osrm']['target']}/build/osrm-routed"
   threads      = new_resource.threads      || node['osrm']['threads']
-  map          = new_resource.map          || [
+  map_base     = new_resource.map_base     || [
+    # concatinate path, remove .osm.bpf/.osm.bz2 file extention
     map_dir, new_resource.region, new_resource.profile,
     ::File.basename(node['osrm']['map_data'][new_resource.region]['url']),
-  ].join('/')
+  ].join('/').split('.')[0..-3].join('.')
 
   config_file  = "#{config_dir}/#{new_resource.region}-#{new_resource.profile}.conf"
   service_name = service_name % "#{new_resource.region}-#{new_resource.profile}"
@@ -39,9 +40,6 @@ action :create do
     mode 00755
   end
 
-  # remove .osm.bpf/.osm.bz2
-  map_stripped_path = map.split('.')[0..-3].join('.')
-
   template config_file do
     mode      00644
     source    'server.ini.erb'
@@ -49,7 +47,7 @@ action :create do
     variables threads: threads,
               listen:  new_resource.listen,
               port:    new_resource.port,
-              data:    "#{map_stripped_path}"
+              data:    "#{map_base}"
   end
 
   user user do
