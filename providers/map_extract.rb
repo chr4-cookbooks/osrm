@@ -27,9 +27,11 @@ def extract(exec_action)
   threads     = new_resource.threads     || node['osrm']['threads']
   memory      = new_resource.memory      || node['osrm']['memory']
   map         = new_resource.map         || [
-    map_dir, new_resource.region, new_resource.profile,
+    map_dir, new_resource.region,
     ::File.basename(node['osrm']['map_data'][new_resource.region]['url']),
   ].join('/')
+
+  linked_map = [ map_dir, new_resource.region, new_resource.profile, ::File.basename(map) ].join('/')
 
   # create extractor.ini
   template "#{cwd}/extractor.ini" do
@@ -55,12 +57,12 @@ def extract(exec_action)
   end
 
   # symlink region map to profile
-  link [ map_dir, new_resource.region, new_resource.profile, ::File.basename(map) ].join('/') do
+  link linked_map do
     to map
   end
 
   # remove .osm.bpf/.osm.bz2
-  map_stripped_path = map.split('.')[0..-3].join('.')
+  map_stripped_path = linked_map.split('.')[0..-3].join('.')
 
   %w{osrm osrm.names osrm.restrictions}.each do |extension|
     # using rm -f, as file provider is really slow when deleting big files
@@ -73,7 +75,7 @@ def extract(exec_action)
     user    new_resource.user if new_resource.user
     cwd     cwd
     timeout new_resource.timeout
-    command "#{command} #{map} #{profile_dir}/#{new_resource.profile}.lua"
+    command "#{command} #{linked_map} #{profile_dir}/#{new_resource.profile}.lua"
     not_if  { ::File.exists?("#{map_stripped_path}.osrm.names") }
   end
 
