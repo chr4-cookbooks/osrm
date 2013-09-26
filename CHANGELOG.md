@@ -3,10 +3,14 @@ osrm CHANGELOG
 
 This file is used to list changes made in each version of the osrm cookbook.
 
-0.1.3
+0.2.0
 -----
 
 - Use status option of routed service, prevents trying to restart a already running routed
+- Add path and map_path attributes to providers, this allows local files instead of urls
+- Do not check map checksum by default (will break with default settings on custom maps otherwise)
+- Renamed map_path attribute to map_dir
+- Add map_base attribute for map_routed provider
 
 
 0.1.2
