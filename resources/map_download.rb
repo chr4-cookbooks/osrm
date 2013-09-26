@@ -24,5 +24,5 @@ default_action :download
 attribute :region,   kind_of: String, name_attribute: true
 attribute :map_dir,  kind_of: String
 attribute :url,      kind_of: String
-attribute :checksum, kind_of: [ TrueClass, FalseClass, String ], default: true
+attribute :checksum, kind_of: [ TrueClass, FalseClass, String ], default: false
 attribute :user,     kind_of: String
