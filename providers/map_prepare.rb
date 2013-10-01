@@ -25,10 +25,7 @@ def prepare(exec_action)
   command     = new_resource.command     || "#{node['osrm']['target']}/build/osrm-prepare"
   cwd         = new_resource.cwd         || "#{node['osrm']['target']}/build"
   threads     = new_resource.threads     || node['osrm']['threads']
-  map         = new_resource.map         || [
-    map_dir, new_resource.region, new_resource.profile,
-    ::File.basename(node['osrm']['map_data'][new_resource.region]['url']),
-  ].join('/')
+  map         = new_resource.map         || node['osrm']['map_data'][new_resource.region]['url']
 
   # create contractor.ini
   template "#{cwd}/contractor.ini" do
@@ -39,8 +36,11 @@ def prepare(exec_action)
     variables threads: threads
   end
 
+  # use map_dir + profile name as output path
   # remove .osm.bpf/.osm.bz2
-  map_stripped_path = map.split('.')[0..-3].join('.')
+  map_stripped_path = [
+    map_dir, new_resource.region, new_resource.profile, ::File.basename(map)
+  ].join('/').split('.')[0..-3].join('.')
 
   %w{osrm.edges osrm.fileIndex osrm.hsgr osrm.nodes osrm.ramIndex}.each do |extension|
     # using rm -f, as file provider is really slow when deleting big files
