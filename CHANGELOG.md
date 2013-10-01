@@ -3,6 +3,11 @@ osrm CHANGELOG
 
 This file is used to list changes made in each version of the osrm cookbook.
 
+0.2.2
+-----
+
+- Fix a bug in map_prepare, now uses map_dir + profile + map basename as output path
+
 0.2.1
 -----
 
