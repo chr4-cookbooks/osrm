@@ -3,6 +3,11 @@ osrm CHANGELOG
 
 This file is used to list changes made in each version of the osrm cookbook.
 
+0.2.1
+-----
+
+- Fix a bug in map_extract, now creates the correct directory before extracting
+
 0.2.0
 -----
 
