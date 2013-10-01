@@ -18,6 +18,10 @@ describe 'osrm_test::map_extract_if_missing' do
     expect(chef_run).to create_file_with_content '/opt/osrm/build/.stxxl', "disk=/var/tmp/stxxl,1024,syscall\n"
   end
 
+  it 'should create /opt/osrm-data/europe/car directory' do
+    expect(chef_run).to create_directory '/opt/osrm-data/europe/car'
+  end
+
   it 'should link downloaded map to profile' do
     expect(chef_run.link('/opt/osrm-data/europe/car/europe-latest.osm.pbf')).to link_to '/opt/osrm-data/europe/europe-latest.osm.pbf'
   end

@@ -51,7 +51,7 @@ def extract(exec_action)
     only_if { new_resource.stxxl_size }
   end
 
-  directory ::File.dirname(map) do
+  directory ::File.dirname(linked_map) do
     mode  00755
     owner new_resource.user if new_resource.user
   end
