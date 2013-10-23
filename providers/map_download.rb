@@ -50,7 +50,10 @@ def download(exec_action)
 
     # when checksum is a URL, use curl to get its content
     if my_checksum =~ /^(http|ftp):\/\//
-      checksum %x[curl #{my_checksum}].split[0]
+      curl = Mixlib::ShellOut.new("curl #{my_checksum}")
+      curl.run_command
+
+      checksum curl.stdout.split[0]
     else
       checksum my_checksum
     end
