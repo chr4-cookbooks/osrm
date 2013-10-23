@@ -47,7 +47,7 @@ action :create do
     variables threads: threads,
               listen:  new_resource.listen,
               port:    new_resource.port,
-              data:    "#{map_base}"
+              data:    map_base
   end
 
   user user do
