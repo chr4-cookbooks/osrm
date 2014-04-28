@@ -35,6 +35,7 @@ action :create do
 
   config_file  = "#{config_dir}/#{new_resource.region}-#{new_resource.profile}.conf"
   service_name = service_name % "#{new_resource.region}-#{new_resource.profile}"
+  map_file = "#{map_base}.osrm"
 
   directory config_dir do
     mode 00755
@@ -63,7 +64,7 @@ action :create do
     source    'upstart.conf.erb'
     cookbook  'osrm'
     variables description: 'OSRM route daemon',
-              daemon:      "#{daemon} #{config_file}",
+              daemon:      "#{daemon} -c #{config_file} #{map_file}",
               user:        user
   end
 

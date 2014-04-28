@@ -75,7 +75,7 @@ def extract(exec_action)
     user    new_resource.user if new_resource.user
     cwd     cwd
     timeout new_resource.timeout
-    command "#{command} #{linked_map} #{profile_dir}/#{new_resource.profile}.lua"
+    command "#{command} #{linked_map} -p #{profile_dir}/#{new_resource.profile}.lua"
     not_if  { ::File.exists?("#{map_stripped_path}.osrm.names") }
   end
 

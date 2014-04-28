@@ -53,7 +53,7 @@ def prepare(exec_action)
     user    new_resource.user if new_resource.user
     cwd     cwd
     timeout new_resource.timeout
-    command "#{command} #{map_stripped_path}.osrm #{map_stripped_path}.osrm.restrictions #{profile_dir}/#{new_resource.profile}.lua"
+    command "#{command} #{map_stripped_path}.osrm -r #{map_stripped_path}.osrm.restrictions -p #{profile_dir}/#{new_resource.profile}.lua"
     not_if  { ::File.exists?("#{map_stripped_path}.osrm.edges") }
   end
 
