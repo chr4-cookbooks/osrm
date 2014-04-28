@@ -32,7 +32,6 @@ attribute :prepare_command, kind_of: String
 attribute :user,            kind_of: String
 attribute :cwd,             kind_of: String
 attribute :threads,         kind_of: String
-attribute :memory,          kind_of: String
 attribute :cleanup,         kind_of: [ TrueClass, FalseClass ]
 attribute :checksum,        kind_of: [ TrueClass, FalseClass, String ]
 attribute :timeout,         kind_of: Integer

@@ -25,7 +25,6 @@ def extract(exec_action)
   command     = new_resource.command     || "#{node['osrm']['target']}/build/osrm-extract"
   cwd         = new_resource.cwd         || "#{node['osrm']['target']}/build"
   threads     = new_resource.threads     || node['osrm']['threads']
-  memory      = new_resource.memory      || node['osrm']['memory']
   map         = new_resource.map         || [
     map_dir, new_resource.region,
     ::File.basename(node['osrm']['map_data'][new_resource.region]['url']),
@@ -39,8 +38,7 @@ def extract(exec_action)
     owner     new_resource.user if new_resource.user
     source    'extractor.ini.erb'
     cookbook  'osrm'
-    variables memory:  memory,
-              threads: threads
+    variables threads: threads
   end
 
   # set preferences for stxxl

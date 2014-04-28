@@ -24,6 +24,4 @@ default['osrm']['branch'] = 'master'
 default['osrm']['target'] = '/opt/osrm'
 default['osrm']['map_dir'] = '/opt/osrm-data'
 
-# use system memory - 1GB by default
-default['osrm']['memory'] = node['memory']['total'].to_i / 1024 / 1024 - 1
 default['osrm']['threads'] = node['cpu']['total']
