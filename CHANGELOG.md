@@ -3,6 +3,9 @@ osrm CHANGELOG
 
 This file is used to list changes made in each version of the osrm cookbook.
 
+0.3.0
+
+- Removed `Memory` option for osrm_extract. This option was removed from osrm-extract some time ago
 0.2.2
 -----
 
