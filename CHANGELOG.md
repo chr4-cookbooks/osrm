@@ -3,9 +3,18 @@ osrm CHANGELOG
 
 This file is used to list changes made in each version of the osrm cookbook.
 
+0.3.1
+-----
+
+- Pinned version to 0.4.1
+- Install osrm-datastore
+- Add workaround for port option ("Port" statement in configuration seems to be ignored in latest version)
+
 0.3.0
+-----
 
 - Removed `Memory` option for osrm_extract. This option was removed from osrm-extract some time ago
+
 0.2.2
 -----
 
