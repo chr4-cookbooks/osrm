@@ -19,7 +19,7 @@
 #
 
 default['osrm']['repository'] = 'git://github.com/DennisOSRM/Project-OSRM.git'
-default['osrm']['branch'] = 'master'
+default['osrm']['branch'] = 'v0.4.1'
 
 default['osrm']['target'] = '/opt/osrm'
 default['osrm']['map_dir'] = '/opt/osrm-data'
