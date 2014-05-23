@@ -63,7 +63,7 @@ git node['osrm']['target'] do
 end
 
 # symlink binaries
-%w{osrm-extract osrm-prepare osrm-routed}.each do |binary|
+%w{osrm-extract osrm-prepare osrm-routed osrm-datastore}.each do |binary|
   link "/usr/local/bin/#{binary}" do
     to "#{node['osrm']['target']}/build/#{binary}"
   end

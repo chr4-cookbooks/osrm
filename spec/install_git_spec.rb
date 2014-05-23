@@ -37,7 +37,7 @@ describe 'osrm::install_git' do
   end
 
   it 'should create symlinks' do
-    %w{osrm-extract osrm-prepare osrm-routed}.each do |binary|
+    %w{osrm-extract osrm-prepare osrm-routed osrm-datastore}.each do |binary|
       expect(chef_run.link("/usr/local/bin/#{binary}")).to link_to "/opt/osrm/build/#{binary}"
     end
   end
