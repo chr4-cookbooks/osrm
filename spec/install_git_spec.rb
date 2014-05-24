@@ -3,7 +3,7 @@ require 'chefspec'
 describe 'osrm::install_git' do
 
   let(:chef_run) do
-    runner = ChefSpec::ChefRunner.new do |node|
+    runner = ChefSpec::Runner.new do |node|
       node.set['cpu']['total'] = 2
     end
     runner.converge 'osrm::install_git'

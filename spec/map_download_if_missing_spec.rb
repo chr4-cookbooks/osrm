@@ -3,7 +3,7 @@ require 'chefspec'
 describe 'osrm_test::map_download_if_missing' do
 
   let(:chef_run) do
-    runner = ChefSpec::ChefRunner.new(step_into: [ 'osrm_map_download' ]) do |node|
+    runner = ChefSpec::Runner.new(step_into: [ 'osrm_map_download' ]) do |node|
       node.set['cpu']['total'] = 2
     end
     runner.converge 'osrm_test::map_download_if_missing'

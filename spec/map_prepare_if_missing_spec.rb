@@ -3,7 +3,7 @@ require 'chefspec'
 describe 'osrm_test::map_prepare_if_missing' do
 
   let(:chef_run) do
-    runner = ChefSpec::ChefRunner.new(step_into: [ 'osrm_map_prepare' ]) do |node|
+    runner = ChefSpec::Runner.new(step_into: [ 'osrm_map_prepare' ]) do |node|
       node.set['cpu']['total'] = 2
     end
     runner.converge 'osrm_test::map_prepare_if_missing'
