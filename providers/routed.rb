@@ -64,7 +64,7 @@ action :create do
     source    'upstart.conf.erb'
     cookbook  'osrm'
     variables description: 'OSRM route daemon',
-              daemon:      "#{daemon} -c #{config_file} #{map_file} -p #{new_resource.port}",
+              daemon:      "#{daemon} #{config_file} #{map_file}",
               user:        user
   end
 
