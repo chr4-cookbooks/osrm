@@ -28,7 +28,13 @@ def create(exec_action)
     action :download_if_missing if exec_action == :create_if_missing
 
     # only download if map is on the internet
-    only_if { new_resource.map =~ /^(http|ftp):\/\// }
+    only_if do
+      if new_resource.map
+        new_resource.map =~ /^(http|ftp):\/\//
+      elsif node['osrm']['map_data'][new_resource.region]
+        node['osrm']['map_data'][new_resource.region]['url'] =~ /^(http|ftp):\/\//
+      end
+    end
   end
 
   osrm_map_extract new_resource.region do
