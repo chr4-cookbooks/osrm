@@ -5,3 +5,4 @@ rvm:
 script:
   - bundle exec rspec --color --format progress
   - bundle exec foodcritic -f any . -t ~FC017 -t ~FC021
+  - bundle exec rubocop
