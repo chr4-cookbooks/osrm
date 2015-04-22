@@ -19,3 +19,16 @@
 #
 
 include_recipe 'osrm::install_git'
+
+#osrm_map_download 'north-america' do
+#  action :download_if_missing
+#end
+
+#osrm_map_extract 'north-america'
+#osrm_map_prepare 'north-america'
+
+#osrm_routed 'north-america'
+
+#service 'osrm-routed-north-america-car' do
+#  action [ :start ]
+#end

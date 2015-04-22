@@ -21,16 +21,26 @@
 package 'git-core'
 package 'build-essential'
 package 'cmake'
+package 'pkg-config'
+package 'libprotobuf8'
+package 'protobuf-compiler'
+package 'libprotobuf-dev'
+package 'libpng12-dev'
 package 'libboost-all-dev'
 package 'libbz2-dev'
 package 'zlib1g-dev'
+package 'libzip-dev'
+package 'lua5.1'
 package 'libluajit-5.1-dev'
+package 'liblua5.1-0-dev'
 package 'libluabind-dev'
 package 'libxml2-dev'
 package 'libstxxl-dev'
+package 'libstxxl-doc'
+package 'libstxxl1'
 package 'libosmpbf-dev'
 package 'libprotoc-dev'
-
+package 'libtbb-dev'
 
 # define tasks
 directory "#{node['osrm']['target']}/build" do
