@@ -20,7 +20,7 @@ Runs install_git
 
 ## install_git
 
-Clone and install the latest HEAD from [Project-OSRM](https://github.com/DennisOSRM/Project-OSRM) to ```node['osrm']['target']``` (default ```/opt/osrm```).
+Clone and install the latest HEAD from [Project-OSRM](https://github.com/Project-OSRM/osrm-backend) to ```node['osrm']['target']``` (default ```/opt/osrm```).
 
 
 # Providers
@@ -227,7 +227,7 @@ You can set the following attributes if you need settings that differ form the d
 ## default
 
 ```ruby
-node['osrm']['repository'] = 'git://github.com/DennisOSRM/Project-OSRM.git'
+node['osrm']['repository'] = 'git://github.com/Project-OSRM/osrm-backend.git'
 node['osrm']['branch'] = 'master' # use e.g. 'v0.3.5' for a stable version
 
 node['osrm']['target'] = '/opt/osrm'
