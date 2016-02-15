@@ -30,6 +30,7 @@ package 'libxml2-dev'
 package 'libstxxl-dev'
 package 'libosmpbf-dev'
 package 'libprotoc-dev'
+package 'libtbb-dev'
 
 
 # define tasks
