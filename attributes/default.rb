@@ -18,7 +18,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-default['osrm']['repository'] = 'git://github.com/DennisOSRM/Project-OSRM.git'
+default['osrm']['repository'] = 'https://github.com/Project-OSRM/osrm-backend'
 default['osrm']['branch'] = 'v0.4.1'
 
 default['osrm']['target'] = '/opt/osrm'
