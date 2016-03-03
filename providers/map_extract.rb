@@ -32,15 +32,6 @@ def extract(exec_action)
 
   linked_map = [ map_dir, new_resource.region, new_resource.profile, ::File.basename(map) ].join('/')
 
-  # create extractor.ini
-  template "#{cwd}/extractor.ini" do
-    mode      00644
-    owner     new_resource.user if new_resource.user
-    source    'extractor.ini.erb'
-    cookbook  'osrm'
-    variables threads: threads
-  end
-
   # set preferences for stxxl
   file "#{cwd}/.stxxl" do
     mode    00644
@@ -73,7 +64,7 @@ def extract(exec_action)
     user    new_resource.user if new_resource.user
     cwd     cwd
     timeout new_resource.timeout
-    command "#{command} #{linked_map} -p #{profile_dir}/#{new_resource.profile}.lua"
+    command "#{command} #{linked_map} -t #{threads} -p #{profile_dir}/#{new_resource.profile}.lua"
     not_if  { ::File.exists?("#{map_stripped_path}.osrm.names") }
   end
 

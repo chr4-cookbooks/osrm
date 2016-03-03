@@ -9,10 +9,6 @@ describe 'osrm_test::map_extract_if_missing' do
     runner.converge 'osrm_test::map_extract_if_missing'
   end
 
-  it 'should create extractor.ini' do
-    expect(chef_run).to create_file_with_content '/opt/osrm/build/extractor.ini', "Memory = 3\nThreads = 2\n"
-  end
-
   it 'should create .stxxl' do
     expect(chef_run).to create_file_with_content '/opt/osrm/build/.stxxl', "disk=/var/tmp/stxxl,1024,syscall\n"
   end
