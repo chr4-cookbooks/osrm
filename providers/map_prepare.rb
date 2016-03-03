@@ -27,15 +27,6 @@ def prepare(exec_action)
   threads     = new_resource.threads     || node['osrm']['threads']
   map         = new_resource.map         || node['osrm']['map_data'][new_resource.region]['url']
 
-  # create contractor.ini
-  template "#{cwd}/contractor.ini" do
-    mode      00644
-    owner     new_resource.user if new_resource.user
-    source    'contractor.ini.erb'
-    cookbook  'osrm'
-    variables threads: threads
-  end
-
   # use map_dir + profile name as output path
   # remove .osm.bpf/.osm.bz2
   map_stripped_path = [
@@ -53,7 +44,7 @@ def prepare(exec_action)
     user    new_resource.user if new_resource.user
     cwd     cwd
     timeout new_resource.timeout
-    command "#{command} #{map_stripped_path}.osrm -r #{map_stripped_path}.osrm.restrictions -p #{profile_dir}/#{new_resource.profile}.lua"
+    command "#{command} #{map_stripped_path}.osrm -r #{map_stripped_path}.osrm.restrictions -t #{threads} -p #{profile_dir}/#{new_resource.profile}.lua"
     not_if  { ::File.exists?("#{map_stripped_path}.osrm.edges") }
   end
 

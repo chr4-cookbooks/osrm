@@ -9,10 +9,6 @@ describe 'osrm_test::map_prepare_if_missing' do
     runner.converge 'osrm_test::map_prepare_if_missing'
   end
 
-  it 'should create contractor.ini' do
-    expect(chef_run).to create_file_with_content '/opt/osrm/build/contractor.ini', "Threads = 2\n"
-  end
-
   # it 'should not delete already prepared files' do
   # end
 
