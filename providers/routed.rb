@@ -20,7 +20,6 @@
 
 action :create do
   # set default variables, as overridden node attributes are not available in resource
-  config_dir   = new_resource.config_dir   || node['osrm']['routed']['config_dir']
   service_name = new_resource.service_name || node['osrm']['routed']['service_name']
   map_dir      = new_resource.map_dir      || node['osrm']['map_dir']
   user         = new_resource.user         || node['osrm']['routed']['user']
@@ -33,23 +32,8 @@ action :create do
     ::File.basename(node['osrm']['map_data'][new_resource.region]['url']),
   ].join('/').split('.')[0..-3].join('.')
 
-  config_file  = "#{config_dir}/#{new_resource.region}-#{new_resource.profile}.conf"
   service_name = service_name % "#{new_resource.region}-#{new_resource.profile}"
   map_file = "#{map_base}.osrm"
-
-  directory config_dir do
-    mode 00755
-  end
-
-  template config_file do
-    mode      00644
-    source    'server.ini.erb'
-    cookbook  'osrm'
-    variables threads: threads,
-              listen:  new_resource.listen,
-              port:    new_resource.port,
-              data:    map_base
-  end
 
   user user do
     home   home
@@ -64,8 +48,20 @@ action :create do
     source    'upstart.conf.erb'
     cookbook  'osrm'
     variables description: 'OSRM route daemon',
-              daemon:      "#{daemon} #{map_file} -c #{config_file}",
-              user:        user
+              user:        user,
+              daemon:      "#{daemon} " \
+                           "--ip #{new_resource.listen} " \
+                           "--port #{new_resource.port} " \
+                           "--threads #{threads} " \
+                           "--hsgrdata #{map_base}.osrm.hsgr " \
+                           "--nodesdata #{map_base}.osrm.nodes " \
+                           "--edgesdata #{map_base}.osrm.edges " \
+                           "--geometry #{map_base}.osrm.geometry " \
+                           "--ramindex #{map_base}.osrm.ramIndex " \
+                           "--fileindex #{map_base}.osrm.fileIndex " \
+                           "--namesdata #{map_base}.osrm.names " \
+                           "--timestamp #{map_base}.osrm.timestamp " \
+                           "#{map_file}"
   end
 
   link "/etc/init.d/#{service_name}" do
@@ -74,8 +70,7 @@ action :create do
 
   service service_name do
     supports   restart: true, status: true
-    subscribes :restart, "template[#{config_file}]"
-    subscribes :restart, "template[#{config_file}]"
+    subscribes :restart, "template[/etc/init/#{service_name}.conf]"
 
     action [ :enable, :start ]
   end
@@ -84,23 +79,12 @@ end
 
 action :delete do
   # set default variables, as overridden node attributes are not available in resource
-  config_dir   = new_resource.config_dir   || node['osrm']['routed']['config_dir']
   service_name = new_resource.service_name || node['osrm']['routed']['service_name']
 
-  config_file  = "#{config_dir}/#{new_resource.region}-#{new_resource.profile}.conf"
   service_name = service_name % "#{new_resource.region}-#{new_resource.profile}"
 
   service(service_name) { action :stop }
 
   file("/etc/init/#{service_name}.conf") { action :delete }
   file("/etc/init.d/#{service_name}") { action :delete }
-
-  file(config_file) { action :delete }
-
-  directory config_dir do
-    action :delete
-
-    # only if empty
-    only_if { Dir.entries(config_dir).size == 2 }
-  end
 end

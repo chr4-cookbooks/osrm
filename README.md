@@ -197,7 +197,6 @@ The following attributes are supported:
 
 ```ruby
 osrm_routed 'europe' do
-  config_dir   '/etc/osrm-routed'  # Where to put the configuration file
   service_name 'osrm-routed-%s'    # %s will be replaced with the selected region and profile
 
   profile      'car'               # Profile for which to start the daemon
@@ -242,7 +241,6 @@ node['osrm']['threads'] = node['cpu']['total']
 ```ruby
 node['osrm']['routed']['user'] = 'osrm-routed'
 node['osrm']['routed']['service_name'] = 'osrm-routed-%s'
-node['osrm']['routed']['config_dir'] = '/etc/osrm-routed'
 ```
 
 ## regions

@@ -20,4 +20,3 @@
 
 default['osrm']['routed']['user'] = 'osrm-routed'
 default['osrm']['routed']['service_name'] = 'osrm-routed-%s'
-default['osrm']['routed']['config_dir'] = '/etc/osrm-routed'
