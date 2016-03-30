@@ -53,14 +53,6 @@ action :create do
                            "--ip #{new_resource.listen} " \
                            "--port #{new_resource.port} " \
                            "--threads #{threads} " \
-                           "--hsgrdata #{map_base}.osrm.hsgr " \
-                           "--nodesdata #{map_base}.osrm.nodes " \
-                           "--edgesdata #{map_base}.osrm.edges " \
-                           "--geometry #{map_base}.osrm.geometry " \
-                           "--ramindex #{map_base}.osrm.ramIndex " \
-                           "--fileindex #{map_base}.osrm.fileIndex " \
-                           "--namesdata #{map_base}.osrm.names " \
-                           "--timestamp #{map_base}.osrm.timestamp " \
                            "#{map_file}"
   end
 
