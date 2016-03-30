@@ -53,19 +53,19 @@ def create(exec_action)
     action :extract_if_missing if exec_action == :create_if_missing
   end
 
-  osrm_map_prepare new_resource.region do
+  osrm_map_contract new_resource.region do
     map_dir     new_resource.map_dir         if new_resource.map_dir
     map         new_resource.map             if new_resource.map
     profile     new_resource.profile         if new_resource.profile
     profile_dir new_resource.profile_dir     if new_resource.profile_dir
-    command     new_resource.prepare_command if new_resource.prepare_command
+    command     new_resource.contract_command if new_resource.contract_command
     user        new_resource.user            if new_resource.user
     cwd         new_resource.cwd             if new_resource.cwd
     threads     new_resource.threads         if new_resource.threads
     cleanup     new_resource.cleanup         if new_resource.cleanup
     timeout     new_resource.timeout         if new_resource.timeout
 
-    action :prepare_if_missing if exec_action == :create_if_missing
+    action :contract_if_missing if exec_action == :create_if_missing
   end
 end
 

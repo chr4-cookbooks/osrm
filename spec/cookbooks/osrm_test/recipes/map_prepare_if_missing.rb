@@ -1,3 +1,3 @@
-osrm_map_prepare 'europe' do
-  action :prepare_if_missing
+osrm_map_contract 'europe' do
+  action :contract_if_missing
 end

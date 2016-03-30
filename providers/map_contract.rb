@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: osrm
-# Provider:: map_prepare
+# Provider:: map_contract
 #
 # Copyright 2012, Chris Aumann
 #
@@ -18,11 +18,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-def prepare(exec_action)
+def contract(exec_action)
   # set default variables, as overridden node attributes are not available in resource
   map_dir     = new_resource.map_dir     || node['osrm']['map_dir']
   profile_dir = new_resource.profile_dir || "#{node['osrm']['target']}/profiles"
-  command     = new_resource.command     || "#{node['osrm']['target']}/build/osrm-prepare"
+  command     = new_resource.command     || "#{node['osrm']['target']}/build/osrm-contract"
   cwd         = new_resource.cwd         || "#{node['osrm']['target']}/build"
   threads     = new_resource.threads     || node['osrm']['threads']
   map         = new_resource.map         || node['osrm']['map_data'][new_resource.region]['url']
@@ -36,11 +36,11 @@ def prepare(exec_action)
   %w{osrm.edges osrm.fileIndex osrm.hsgr osrm.nodes osrm.ramIndex}.each do |extension|
     # using rm -f, as file provider is really slow when deleting big files
     execute "rm -f #{map_stripped_path}.#{extension}" do
-      not_if { exec_action == :prepare_if_missing }
+      not_if { exec_action == :contract_if_missing }
     end
   end
 
-  execute "osrm-#{new_resource.region}-#{new_resource.profile}-prepare" do
+  execute "osrm-#{new_resource.region}-#{new_resource.profile}-contract" do
     user    new_resource.user if new_resource.user
     cwd     cwd
     timeout new_resource.timeout
@@ -56,10 +56,10 @@ def prepare(exec_action)
   end
 end
 
-action :prepare do
-  prepare(:prepare)
+action :contract do
+  contract(:contract)
 end
 
-action :prepare_if_missing do
-  prepare(:prepare_if_missing)
+action :contract_if_missing do
+  contract(:contract_if_missing)
 end

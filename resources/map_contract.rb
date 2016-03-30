@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: osrm
-# Resource:: map_prepare
+# Resource:: map_contract
 #
 # Copyright 2012, Chris Aumann
 #
@@ -18,8 +18,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-actions        :prepare, :prepare_if_missing
-default_action :prepare
+actions        :contract, :contract_if_missing
+default_action :contract
 
 attribute :region,      kind_of: String,  name_attribute: true
 attribute :map_dir,     kind_of: String

@@ -28,7 +28,7 @@ attribute :user,            kind_of: String
 attribute :profile,         kind_of: String
 attribute :profile_dir,     kind_of: String
 attribute :extract_command, kind_of: String
-attribute :prepare_command, kind_of: String
+attribute :contract_command, kind_of: String
 attribute :user,            kind_of: String
 attribute :cwd,             kind_of: String
 attribute :threads,         kind_of: String

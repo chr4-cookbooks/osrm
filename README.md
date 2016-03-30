@@ -3,7 +3,7 @@
 This cookbook can do the following things for you
 
 * Install and configure the OSRM route daemon
-* Download, extract, prepare map data and keep them up to date
+* Download, extract, contract map data and keep them up to date
   * (Uses the map data from [Geofabrik](http://download.geofabrik.de/))
 
 To use the following recipes and providers, add the following to your metadata.rb
@@ -31,9 +31,9 @@ osrm_map is a shortcut that calls the other map providers in the following order
 
 * osrm_map_download
 * osrm_map_extract
-* osrm_prepare
+* osrm_contract
 
-This example downloads, extracts and prepares the osrm map for Germany:
+This example downloads, extracts and contracts the osrm map for Germany:
 
 ```ruby
 osrm_map 'germany'
@@ -53,12 +53,12 @@ osrm_map 'europe'
   profile         'car'                  # Profile to use (defaults to 'car')
   profile_dir     '/srv/my_profiles'     # Where to look for profiles (.lua files)
   extract_command 'osrm-extract'         # Path to osrm-extract binary
-  prepare_command 'osrm-prepare'         # Path to osrm-prepare binary
+  contract_command 'osrm-contract'         # Path to osrm-contract binary
   user            'my_osrm_user'         # User to run commands as
   cwd             '/srv/my_osrm'         # Set working directory for osrm-extract
   threads         5                      # How many threads to use (defaults to number of cpu cores)
   cleanup         false                  # Do not cleanup .osrm and .osrm.restrictions after preparing
-  timeout         3600                   # Timeout in seconds for osrm-extract/osrm-prepare. Defaults to 24h
+  timeout         3600                   # Timeout in seconds for osrm-extract/osrm-contract. Defaults to 24h
   stxxl_size      150000                 # Size (in MB) of stxxl temporary file. Dynamically allocated by default
   stxxl_file      '/tmp/stxxl'           # Location of stxxl temporary file. Defaults to '/var/tmp/stxxl'
 
@@ -150,20 +150,20 @@ osrm_map_extract 'europe' do
 end
 ```
 
-## osrm_map_prepare
+## osrm_map_contract
 
-Prepares extracted map data, using osrm-prepare.
+contracts extracted map data, using osrm-contract.
 
 Example:
 
 ```ruby
-osrm_map_prepare 'europe'
+osrm_map_contract 'europe'
 ```
 
 The following attribtues are supported:
 
 ```ruby
-osrm_map_prepare 'europe' do
+osrm_map_contract 'europe' do
   map_dir     '/srv/my_map_data'  # Use the same directory you used in osrm_map_download
 
   # Path to the map (osm.pbf or osm.bz2) to use.
@@ -174,9 +174,9 @@ osrm_map_prepare 'europe' do
 
   profile     'car'               # Profile to use (defaults to 'car')
   profile_dir '/srv/my_profiles'  # Where to look for profiles (.lua files)
-  command     'osrm-prepare'      # Binary to use
+  command     'osrm-contract'      # Binary to use
   user        'my_osrm_user'
-  cwd         '/srv/my_osrm'      # Set working directory for osrm-prepare
+  cwd         '/srv/my_osrm'      # Set working directory for osrm-contract
   threads     5                   # How many threads to use (defaults to number of cpu cores)
   cleanup     false               # Do not cleanup .osrm and .osrm.restrictions after preparing
   timeout     3600                # Timeout in seconds for osrm-extract. Defaults to 24h
@@ -207,7 +207,7 @@ osrm_routed 'europe' do
   daemon       '/path/to/osrm-routed'
 
   map_dir      '/srv/my_map_data'  # Use the same directory you used in osrm_map_download)
-  map_base     '/path/to/map_base' # Base path of the (prepared) map
+  map_base     '/path/to/map_base' # Base path of the (contractd) map
                                    # e.g. '/opt/osrm-data/europe/car/europe-lastest'
                                    # (skip the file extention, like .edges or .osm.bpf)
 
