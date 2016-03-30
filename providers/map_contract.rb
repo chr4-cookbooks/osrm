@@ -44,7 +44,7 @@ def contract(exec_action)
     user    new_resource.user if new_resource.user
     cwd     cwd
     timeout new_resource.timeout
-    command "#{command} #{map_stripped_path}.osrm -t #{threads} -p #{profile_dir}/#{new_resource.profile}.lua"
+    command "#{command} #{map_stripped_path}.osrm -t #{threads}"
     not_if  { ::File.exists?("#{map_stripped_path}.osrm.hsgr") }
   end
 
