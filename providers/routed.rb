@@ -53,7 +53,7 @@ action :create do
                            "--ip #{new_resource.listen} " \
                            "--port #{new_resource.port} " \
                            "--threads #{threads} " \
-                           "#{map_file}"
+                           "#{new_resource.shared_memory ? '--shared-memory true' : map_file}"
   end
 
   link "/etc/init.d/#{service_name}" do

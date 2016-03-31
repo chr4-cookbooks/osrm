@@ -21,14 +21,15 @@
 actions        :create, :delete
 default_action :create
 
-attribute :region,       kind_of: String,  name_attribute: true
-attribute :profile,      kind_of: String,  default: 'car'
-attribute :map_dir,      kind_of: String
-attribute :map_base,     kind_of: String
-attribute :service_name, kind_of: String
-attribute :user,         kind_of: String
-attribute :home,         kind_of: String
-attribute :daemon,       kind_of: String
-attribute :threads,      kind_of: String
-attribute :listen,       kind_of: String,  default: '127.0.0.1'
-attribute :port,         kind_of: Integer, default: 5000
+attribute :region,        kind_of: String,  name_attribute: true
+attribute :profile,       kind_of: String,  default: 'car'
+attribute :map_dir,       kind_of: String
+attribute :map_base,      kind_of: String
+attribute :service_name,  kind_of: String
+attribute :user,          kind_of: String
+attribute :home,          kind_of: String
+attribute :daemon,        kind_of: String
+attribute :threads,       kind_of: String
+attribute :listen,        kind_of: String,  default: '127.0.0.1'
+attribute :port,          kind_of: Integer, default: 5000
+attribute :shared_memory, kind_of: [TrueClass, FalseClass], default: false
