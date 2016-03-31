@@ -215,6 +215,40 @@ osrm_routed 'europe' do
 
   port         5000                # TCP port to bind to
   listen       '127.0.0.1'         # TCP address to listen on
+
+  shared_memory false              # Use a shared-memory segment (created by osrm-datastore, see next provider)
+end
+```
+
+## osrm_datastore
+
+Loads a specified map into memory
+
+Example:
+
+```ruby
+osrm_datastore 'europe'
+```
+
+The following attributes are supported:
+
+```ruby
+osrm_datastore 'europe' do
+  service_name 'osrm-datastore-%s' # %s will be replaced with the selected region and profile
+
+  profile      'car'               # Profile for which to start the daemon
+
+  shmmax       5_000_000_000       # Memory limit in bytes. Defaults to a value that should be enough for world
+
+  user         'osrm-routed'       # User to run the daemon as (will be created if not existent)
+  home         '/my/osrm-install'  # Home directory of the osrm-routed user
+
+  command      '/path/to/osrm-datastore'
+
+  map_dir      '/srv/my_map_data'  # Use the same directory you used in osrm_map_download)
+  map_base     '/path/to/map_base' # Base path of the (contractd) map
+                                   # e.g. '/opt/osrm-data/europe/car/europe-lastest'
+                                   # (skip the file extention, like .edges or .osm.bpf)
 end
 ```
 
