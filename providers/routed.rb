@@ -35,13 +35,6 @@ action :create do
   service_name = service_name % "#{new_resource.region}-#{new_resource.profile}"
   map_file = "#{map_base}.osrm"
 
-  user user do
-    home   home
-    shell  '/bin/false'
-    system true
-  end
-
-
   # deploy upstart script
   template "/etc/init/#{service_name}.conf" do
     mode      00644

@@ -35,12 +35,6 @@ action :create do
   service_name = service_name % "#{new_resource.region}-#{new_resource.profile}"
   map_file = "#{map_base}.osrm"
 
-  user user do
-    home   home
-    shell  '/bin/false'
-    system true
-  end
-
   # Adjust shared memory limits to allow osrm-datastore to load the complete map into memory
   # See: https://github.com/Project-OSRM/osrm-backend/wiki/Configuring-and-using-Shared-Memory
   include_recipe 'sysctl'
