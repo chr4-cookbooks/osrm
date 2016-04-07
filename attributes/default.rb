@@ -19,7 +19,7 @@
 #
 
 default['osrm']['repository'] = 'https://github.com/Project-OSRM/osrm-backend'
-default['osrm']['branch'] = 'v4.9.1'
+default['osrm']['branch'] = 'v5.0.0-rc.1'
 
 default['osrm']['target'] = '/opt/osrm'
 default['osrm']['map_dir'] = '/opt/osrm-data'
