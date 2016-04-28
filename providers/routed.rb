@@ -61,7 +61,6 @@ action :create do
   end
 end
 
-
 action :delete do
   # Set default variables, as overridden node attributes are not available in resource
   service_name = new_resource.service_name || node['osrm']['routed']['service_name']

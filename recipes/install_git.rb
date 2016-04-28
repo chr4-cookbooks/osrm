@@ -32,7 +32,6 @@ package 'libosmpbf-dev'
 package 'libprotoc-dev'
 package 'libtbb-dev'
 
-
 # Define tasks
 directory "#{node['osrm']['target']}/build" do
   action :nothing
