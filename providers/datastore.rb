@@ -49,7 +49,7 @@ action :create do
     mode      00644
     cookbook  'osrm'
     source    'limits.conf.erb'
-    variables memlock: shmmax/1024 # memlock uses KiB
+    variables memlock: shmmax / 1024 # memlock uses KiB
   end
 
   execute "#{command} #{map_file}" do
