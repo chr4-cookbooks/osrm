@@ -3,6 +3,13 @@ osrm CHANGELOG
 
 This file is used to list changes made in each version of the osrm cookbook.
 
+5.0.0
+-----
+
+- Update to new osrm-routed api (v5)
+- Do not automatically create user in routed provider
+- Remove some unused attributes in providers
+
 0.3.3
 -----
 
