@@ -18,6 +18,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+use_inline_resources
+
 def download(exec_action)
   # Set default variables, as overridden node attributes are not available in resource
   map_dir = new_resource.map_dir || node['osrm']['map_dir']

@@ -18,6 +18,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+use_inline_resources
+
 action :create do
   # Set default variables, as overridden node attributes are not available in resource
   service_name = new_resource.service_name || node['osrm']['routed']['service_name']

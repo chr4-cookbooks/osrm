@@ -18,6 +18,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+use_inline_resources
+
 def create(exec_action)
   osrm_map_download new_resource.region do
     map_dir  new_resource.map_dir  if new_resource.map_dir
