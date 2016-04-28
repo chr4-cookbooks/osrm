@@ -32,11 +32,11 @@ end
 
 # Europe
 %w(albania alps andorra austria azores belarus belgium bosnia-herzegovina british-isles
-  bulgaria croatia cyprus czech-republic denmark estonia faroe-islands finland france germany
-  great-britain greece hungary iceland ireland-and-northern-ireland isle-of-man italy kosovo latvia
-  liechtenstein lithuania luxembourg macedonia malta moldova monaco montenegro netherlands norway
-  poland portugal romania russia-european-part serbia slovakia slovenia spain sweden switzerland
-  turkey ukraine).each do |region|
+   bulgaria croatia cyprus czech-republic denmark estonia faroe-islands finland france germany
+   great-britain greece hungary iceland ireland-and-northern-ireland isle-of-man italy kosovo latvia
+   liechtenstein lithuania luxembourg macedonia malta moldova monaco montenegro netherlands norway
+   poland portugal romania russia-european-part serbia slovakia slovenia spain sweden switzerland
+   turkey ukraine).each do |region|
   default['osrm']['map_data'][region]['profiles'] = %w(car)
   default['osrm']['map_data'][region]['url'] = "http://download.geofabrik.de/europe/#{region}-latest.osm.pbf"
   default['osrm']['map_data'][region]['checksum'] = "#{node['osrm']['map_data'][region]['url']}.md5"
@@ -51,10 +51,10 @@ end
 
 # US states
 %w(alabama alaska arizona arkansas california colorado connecticut delaware district-of-columbia florida
-  georgia hawaii idaho illinois indiana iowa kansas kentucky louisiana maine maryland massachusetts
-  michigan minnesota mississippi missouri montana nebraska nevada new-hampshire new-jersey new-mexico
-  new-york north-carolina north-dakota ohio oklahoma oregon pennsylvania rhode-island south-carolina
-  south-dakota tennessee texas utah vermont virginia washington west-virginia wisconsin wyoming).each do |region|
+   georgia hawaii idaho illinois indiana iowa kansas kentucky louisiana maine maryland massachusetts
+   michigan minnesota mississippi missouri montana nebraska nevada new-hampshire new-jersey new-mexico
+   new-york north-carolina north-dakota ohio oklahoma oregon pennsylvania rhode-island south-carolina
+   south-dakota tennessee texas utah vermont virginia washington west-virginia wisconsin wyoming).each do |region|
   default['osrm']['map_data'][region]['profiles'] = %w(car)
   default['osrm']['map_data'][region]['url'] = "http://download.geofabrik.de/north-america/us/#{region}-latest.osm.pbf"
   default['osrm']['map_data'][region]['checksum'] = "#{node['osrm']['map_data'][region]['url']}.md5"
