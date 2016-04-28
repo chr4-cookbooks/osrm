@@ -44,7 +44,7 @@ def contract(exec_action)
     cwd     cwd
     timeout new_resource.timeout
     command "#{command} #{map_stripped_path}.osrm -t #{threads}"
-    not_if  { ::File.exists?("#{map_stripped_path}.osrm.hsgr") }
+    not_if  { ::File.exist?("#{map_stripped_path}.osrm.hsgr") }
   end
 
   # Cleanup previously extracted files (not needed anymore)

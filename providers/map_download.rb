@@ -70,7 +70,7 @@ def download(exec_action)
     message ''
     url url
 
-    if ::File.exists?(path)
+    if ::File.exist?(path)
       headers 'If-Modified-Since' => ::File.mtime(path).httpdate
     end
 

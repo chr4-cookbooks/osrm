@@ -65,7 +65,7 @@ def extract(exec_action)
     cwd     cwd
     timeout new_resource.timeout
     command "#{command} #{linked_map} -t #{threads} -p #{profile_dir}/#{new_resource.profile}.lua"
-    not_if  { ::File.exists?("#{map_stripped_path}.osrm.names") }
+    not_if  { ::File.exist?("#{map_stripped_path}.osrm.names") }
   end
 
   # Remove temporary file.
