@@ -173,7 +173,6 @@ osrm_map_contract 'europe' do
   map        '/path/to/map.osm.bpf'
 
   profile     'car'               # Profile to use (defaults to 'car')
-  profile_dir '/srv/my_profiles'  # Where to look for profiles (.lua files)
   command     'osrm-contract'      # Binary to use
   user        'my_osrm_user'
   cwd         '/srv/my_osrm'      # Set working directory for osrm-contract

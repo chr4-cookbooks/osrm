@@ -21,7 +21,6 @@
 def contract(exec_action)
   # Set default variables, as overridden node attributes are not available in resource
   map_dir     = new_resource.map_dir     || node['osrm']['map_dir']
-  profile_dir = new_resource.profile_dir || "#{node['osrm']['target']}/profiles"
   command     = new_resource.command     || "#{node['osrm']['target']}/build/osrm-contract"
   cwd         = new_resource.cwd         || "#{node['osrm']['target']}/build"
   threads     = new_resource.threads     || node['osrm']['threads']

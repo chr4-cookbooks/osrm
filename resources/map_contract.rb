@@ -25,7 +25,6 @@ attribute :region,      kind_of: String, name_attribute: true
 attribute :map_dir,     kind_of: String
 attribute :map,         kind_of: String
 attribute :profile,     kind_of: String, default: 'car'
-attribute :profile_dir, kind_of: String
 attribute :command,     kind_of: String
 attribute :cwd,         kind_of: String
 attribute :user,        kind_of: String
