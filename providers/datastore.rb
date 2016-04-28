@@ -27,7 +27,9 @@ action :create do
   command      = new_resource.command      || "#{node['osrm']['target']}/build/osrm-datastore"
   map_base     = new_resource.map_base     || [
     # Concatinate path, remove .osm.bpf/.osm.bz2 file extention
-    map_dir, new_resource.region, new_resource.profile,
+    map_dir,
+    new_resource.region,
+    new_resource.profile,
     ::File.basename(node['osrm']['map_data'][new_resource.region]['url']),
   ].join('/').split('.')[0..-3].join('.')
 

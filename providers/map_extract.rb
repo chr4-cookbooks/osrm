@@ -26,7 +26,8 @@ def extract(exec_action)
   cwd         = new_resource.cwd         || "#{node['osrm']['target']}/build"
   threads     = new_resource.threads     || node['osrm']['threads']
   map         = new_resource.map         || [
-    map_dir, new_resource.region,
+    map_dir,
+    new_resource.region,
     ::File.basename(node['osrm']['map_data'][new_resource.region]['url']),
   ].join('/')
 
