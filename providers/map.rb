@@ -30,9 +30,9 @@ def create(exec_action)
     # Only download if map is on the internet
     only_if do
       if new_resource.map
-        new_resource.map =~ /^(http|ftp):\/\//
+        new_resource.map =~ %r/^(http|ftp):\/\//
       elsif node['osrm']['map_data'][new_resource.region]
-        node['osrm']['map_data'][new_resource.region]['url'] =~ /^(http|ftp):\/\//
+        node['osrm']['map_data'][new_resource.region]['url'] =~ %r/^(http|ftp):\/\//
       end
     end
   end
