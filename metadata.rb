@@ -8,3 +8,4 @@ version          '4.9.0'
 source_url       'https://github.com/chr4-cookbooks/osrm' if respond_to?(:source_url)
 issues_url       'https://github.com/chr4-cookbooks/osrm/issues' if respond_to?(:issues_url)
 supports         'ubuntu'
+depends          'sysctl'
