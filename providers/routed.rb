@@ -57,7 +57,7 @@ action :create do
     supports   restart: true, status: true
     subscribes :restart, "template[/etc/init/#{service_name}.conf]"
 
-    action [ :enable, :start ]
+    action [:enable, :start]
   end
 end
 

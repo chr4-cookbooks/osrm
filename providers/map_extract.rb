@@ -30,7 +30,7 @@ def extract(exec_action)
     ::File.basename(node['osrm']['map_data'][new_resource.region]['url']),
   ].join('/')
 
-  linked_map = [ map_dir, new_resource.region, new_resource.profile, ::File.basename(map) ].join('/')
+  linked_map = [map_dir, new_resource.region, new_resource.profile, ::File.basename(map)].join('/')
 
   # Set preferences for stxxl
   file "#{cwd}/.stxxl" do
