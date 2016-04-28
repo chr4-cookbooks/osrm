@@ -1,1 +1,0 @@
-osrm_routed 'europe'
