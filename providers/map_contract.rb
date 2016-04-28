@@ -32,7 +32,7 @@ def contract(exec_action)
     map_dir, new_resource.region, new_resource.profile, ::File.basename(map)
   ].join('/').split('.')[0..-3].join('.')
 
-  %w{osrm.edges osrm.fileIndex osrm.hsgr osrm.nodes osrm.ramIndex}.each do |extension|
+  %w(osrm.edges osrm.fileIndex osrm.hsgr osrm.nodes osrm.ramIndex).each do |extension|
     # Using rm -f, as file provider is really slow when deleting big files
     execute "rm -f #{map_stripped_path}.#{extension}" do
       not_if { exec_action == :contract_if_missing }

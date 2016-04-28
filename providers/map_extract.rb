@@ -53,7 +53,7 @@ def extract(exec_action)
   # Remove .osm.bpf/.osm.bz2
   map_stripped_path = linked_map.split('.')[0..-3].join('.')
 
-  %w{osrm osrm.names osrm.restrictions}.each do |extension|
+  %w(osrm osrm.names osrm.restrictions).each do |extension|
     # Using rm -f, as file provider is really slow when deleting big files
     execute "rm -f #{map_stripped_path}.#{extension}" do
       not_if { exec_action == :extract_if_missing }

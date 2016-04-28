@@ -282,7 +282,7 @@ node['osrm']['routed']['service_name'] = 'osrm-routed-%s'
 You can add custom regions like this
 
 ```ruby
-node['osrm']['map_data']['your-region']['profiles'] = %w{car}
+node['osrm']['map_data']['your-region']['profiles'] = %w(car)
 node['osrm']['map_data']['your-region']['url'] = "http://download.geofabrik.de/your-region-latest.osm.pbf"
 node['osrm']['map_data']['your-region']['checksum'] = "#{node['osrm']['map_data']['your-region']['url']}.md5"
 ```
