@@ -47,11 +47,10 @@ def contract(exec_action)
   end
 
   # Cleanup previously extracted files (not needed anymore)
-  if new_resource.cleanup
-    # using rm -f, as file provider is really slow when deleting big files
-    execute "rm -f #{map_stripped_path}.osrm"
-    execute "rm -f #{map_stripped_path}.osrm.restrictions"
-  end
+  # using rm -f, as file provider is really slow when deleting big files
+  return unless new_resource.cleanup
+  execute "rm -f #{map_stripped_path}.osrm"
+  execute "rm -f #{map_stripped_path}.osrm.restrictions"
 end
 
 action :contract do
