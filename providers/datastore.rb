@@ -20,7 +20,6 @@
 
 action :create do
   # Set default variables, as overridden node attributes are not available in resource
-  service_name = new_resource.service_name || node['osrm']['datastore']['service_name']
   map_dir      = new_resource.map_dir      || node['osrm']['map_dir']
   user         = new_resource.user         || node['osrm']['datastore']['user']
   shmmax       = new_resource.shmmax       || node['osrm']['shmmax']
@@ -33,7 +32,6 @@ action :create do
     ::File.basename(node['osrm']['map_data'][new_resource.region]['url']),
   ].join('/').split('.')[0..-3].join('.')
 
-  service_name = service_name % "#{new_resource.region}-#{new_resource.profile}"
   map_file = "#{map_base}.osrm"
 
   # Adjust shared memory limits to allow osrm-datastore to load the complete map into memory

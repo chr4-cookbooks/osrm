@@ -28,4 +28,3 @@ attribute :map_base,     kind_of: String
 attribute :user,         kind_of: String
 attribute :command,      kind_of: String
 attribute :shmmax,       kind_of: Integer
-attribute :service_name, kind_of: String
