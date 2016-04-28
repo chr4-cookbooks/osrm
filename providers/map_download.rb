@@ -36,17 +36,18 @@ def download(exec_action)
     source   url
     backup   false
 
-    case new_resource.checksum
-    when false
-      # Deactivate checksum checking, when checksum is set to false
-      my_checksum = nil
-    when true
-      # Use the default checksum when checksum is set to true
-      my_checksum = node['osrm']['map_data'][new_resource.region]['checksum']
-    else
-      # Checksum was manually specified
-      my_checksum = new_resource.checksum
-    end
+    my_checksum =
+      case new_resource.checksum
+      when false
+        # Deactivate checksum checking, when checksum is set to false
+        nil
+      when true
+        # Use the default checksum when checksum is set to true
+        node['osrm']['map_data'][new_resource.region]['checksum']
+      else
+        # Checksum was manually specified
+        new_resource.checksum
+      end
 
     # When checksum is a URL, use curl to get its content
     if my_checksum =~ %r{^(http|ftp)://}
