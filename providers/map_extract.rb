@@ -19,7 +19,7 @@
 #
 
 def extract(exec_action)
-  # set default variables, as overridden node attributes are not available in resource
+  # Set default variables, as overridden node attributes are not available in resource
   map_dir     = new_resource.map_dir     || node['osrm']['map_dir']
   profile_dir = new_resource.profile_dir || "#{node['osrm']['target']}/profiles"
   command     = new_resource.command     || "#{node['osrm']['target']}/build/osrm-extract"
@@ -32,7 +32,7 @@ def extract(exec_action)
 
   linked_map = [ map_dir, new_resource.region, new_resource.profile, ::File.basename(map) ].join('/')
 
-  # set preferences for stxxl
+  # Set preferences for stxxl
   file "#{cwd}/.stxxl" do
     mode    00644
     owner   new_resource.user if new_resource.user
@@ -45,16 +45,16 @@ def extract(exec_action)
     owner new_resource.user if new_resource.user
   end
 
-  # symlink region map to profile
+  # Symlink region map to profile
   link linked_map do
     to map
   end
 
-  # remove .osm.bpf/.osm.bz2
+  # Remove .osm.bpf/.osm.bz2
   map_stripped_path = linked_map.split('.')[0..-3].join('.')
 
   %w{osrm osrm.names osrm.restrictions}.each do |extension|
-    # using rm -f, as file provider is really slow when deleting big files
+    # Using rm -f, as file provider is really slow when deleting big files
     execute "rm -f #{map_stripped_path}.#{extension}" do
       not_if { exec_action == :extract_if_missing }
     end
@@ -68,8 +68,8 @@ def extract(exec_action)
     not_if  { ::File.exists?("#{map_stripped_path}.osrm.names") }
   end
 
-  # remove temporary file.
-  # using rm -f, as file provider is really slow when deleting big files
+  # Remove temporary file.
+  # Using rm -f, as file provider is really slow when deleting big files
   execute "rm -f #{new_resource.stxxl_file}"
 end
 

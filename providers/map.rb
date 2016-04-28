@@ -27,7 +27,7 @@ def create(exec_action)
 
     action :download_if_missing if exec_action == :create_if_missing
 
-    # only download if map is on the internet
+    # Only download if map is on the internet
     only_if do
       if new_resource.map
         new_resource.map =~ /^(http|ftp):\/\//

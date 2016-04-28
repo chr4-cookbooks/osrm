@@ -19,7 +19,7 @@
 #
 
 def download(exec_action)
-  # set default variables, as overridden node attributes are not available in resource
+  # Set default variables, as overridden node attributes are not available in resource
   map_dir = new_resource.map_dir || node['osrm']['map_dir']
   url     = new_resource.url     || node['osrm']['map_data'][new_resource.region]['url']
 
@@ -38,17 +38,17 @@ def download(exec_action)
 
     case new_resource.checksum
     when false
-      # deactivate checksum checking, when checksum is set to false
+      # Deactivate checksum checking, when checksum is set to false
       my_checksum = nil
     when true
-      # use the default checksum when checksum is set to true
+      # Use the default checksum when checksum is set to true
       my_checksum = node['osrm']['map_data'][new_resource.region]['checksum']
     else
-      # checksum was manually specified
+      # Checksum was manually specified
       my_checksum = new_resource.checksum
     end
 
-    # when checksum is a URL, use curl to get its content
+    # When checksum is a URL, use curl to get its content
     if my_checksum =~ /^(http|ftp):\/\//
       curl = Mixlib::ShellOut.new("curl #{my_checksum}")
       curl.run_command
@@ -65,7 +65,7 @@ def download(exec_action)
     end
   end
 
-  # check whether a new version is available
+  # Check whether a new version is available
   http_request "osrm-#{new_resource.region}-download" do
     message ''
     url url

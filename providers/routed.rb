@@ -19,7 +19,7 @@
 #
 
 action :create do
-  # set default variables, as overridden node attributes are not available in resource
+  # Set default variables, as overridden node attributes are not available in resource
   service_name = new_resource.service_name || node['osrm']['routed']['service_name']
   map_dir      = new_resource.map_dir      || node['osrm']['map_dir']
   user         = new_resource.user         || node['osrm']['routed']['user']
@@ -27,7 +27,7 @@ action :create do
   daemon       = new_resource.daemon       || "#{node['osrm']['target']}/build/osrm-routed"
   threads      = new_resource.threads      || node['osrm']['threads']
   map_base     = new_resource.map_base     || [
-    # concatinate path, remove .osm.bpf/.osm.bz2 file extention
+    # Concatinate path, remove .osm.bpf/.osm.bz2 file extention
     map_dir, new_resource.region, new_resource.profile,
     ::File.basename(node['osrm']['map_data'][new_resource.region]['url']),
   ].join('/').split('.')[0..-3].join('.')
@@ -35,7 +35,7 @@ action :create do
   service_name = service_name % "#{new_resource.region}-#{new_resource.profile}"
   map_file = "#{map_base}.osrm"
 
-  # deploy upstart script
+  # Deploy upstart script
   template "/etc/init/#{service_name}.conf" do
     mode      00644
     source    'upstart.conf.erb'
@@ -63,7 +63,7 @@ end
 
 
 action :delete do
-  # set default variables, as overridden node attributes are not available in resource
+  # Set default variables, as overridden node attributes are not available in resource
   service_name = new_resource.service_name || node['osrm']['routed']['service_name']
 
   service_name = service_name % "#{new_resource.region}-#{new_resource.profile}"

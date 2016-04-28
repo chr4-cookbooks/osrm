@@ -19,7 +19,7 @@
 #
 
 action :create do
-  # set default variables, as overridden node attributes are not available in resource
+  # Set default variables, as overridden node attributes are not available in resource
   service_name = new_resource.service_name || node['osrm']['datastore']['service_name']
   map_dir      = new_resource.map_dir      || node['osrm']['map_dir']
   user         = new_resource.user         || node['osrm']['datastore']['user']
@@ -27,7 +27,7 @@ action :create do
   shmmax       = new_resource.shmmax       || node['osrm']['shmmax']
   command      = new_resource.command      || "#{node['osrm']['target']}/build/osrm-datastore"
   map_base     = new_resource.map_base     || [
-    # concatinate path, remove .osm.bpf/.osm.bz2 file extention
+    # Concatinate path, remove .osm.bpf/.osm.bz2 file extention
     map_dir, new_resource.region, new_resource.profile,
     ::File.basename(node['osrm']['map_data'][new_resource.region]['url']),
   ].join('/').split('.')[0..-3].join('.')

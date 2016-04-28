@@ -18,19 +18,19 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# planet
+# Planet
 default['osrm']['map_data']['planet']['profiles'] = %w{car}
 default['osrm']['map_data']['planet']['url'] = 'http://planet.openstreetmap.org/pbf/planet-latest.osm.pbf'
 default['osrm']['map_data']['planet']['checksum'] = "#{node['osrm']['map_data']['planet']['url']}.md5"
 
-# continents
+# Continents
 %w{africa antarctica asia australia-oceania central-america europe north-america south-america}.each do |region|
   default['osrm']['map_data'][region]['profiles'] = %w{car}
   default['osrm']['map_data'][region]['url'] = "http://download.geofabrik.de/#{region}-latest.osm.pbf"
   default['osrm']['map_data'][region]['checksum'] = "#{node['osrm']['map_data'][region]['url']}.md5"
 end
 
-# europe
+# Europe
 %w{
   albania alps andorra austria azores belarus belgium bosnia-herzegovina british-isles
   bulgaria croatia cyprus czech-republic denmark estonia faroe-islands finland france germany
@@ -44,7 +44,7 @@ end
   default['osrm']['map_data'][region]['checksum'] = "#{node['osrm']['map_data'][region]['url']}.md5"
 end
 
-# north-american regions
+# North-American regions
 %w{
   canada greenland us-midwest us-northeast us-pacific us-south us-west
 }.each do |region|
@@ -53,7 +53,7 @@ end
   default['osrm']['map_data'][region]['checksum'] = "#{node['osrm']['map_data'][region]['url']}.md5"
 end
 
-# us states
+# US states
 %w{
   alabama alaska arizona arkansas california colorado connecticut delaware district-of-columbia florida
   georgia hawaii idaho illinois indiana iowa kansas kentucky louisiana maine maryland massachusetts

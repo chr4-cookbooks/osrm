@@ -33,7 +33,7 @@ package 'libprotoc-dev'
 package 'libtbb-dev'
 
 
-# define tasks
+# Define tasks
 directory "#{node['osrm']['target']}/build" do
   action :nothing
 end
@@ -54,16 +54,16 @@ git node['osrm']['target'] do
   repository  node['osrm']['repository']
   branch      node['osrm']['branch']
 
-  # build
+  # Build
   notifies :create, "directory[#{node['osrm']['target']}/build]", :immediately
   notifies :run,    'execute[cmake ..]', :immediately
   notifies :run,    'execute[make]', :immediately
 
-  # no continous deployment for a repository not under our control
+  # No continous deployment for a repository not under our control
   not_if { File.directory?("#{node['osrm']['target']}/build") }
 end
 
-# symlink binaries
+# Symlink binaries
 %w{osrm-extract osrm-contract osrm-routed osrm-datastore}.each do |binary|
   link "/usr/local/bin/#{binary}" do
     to "#{node['osrm']['target']}/build/#{binary}"
