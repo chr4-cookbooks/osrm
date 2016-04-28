@@ -38,7 +38,7 @@ action :create do
   # See: https://github.com/Project-OSRM/osrm-backend/wiki/Configuring-and-using-Shared-Memory
   include_recipe 'sysctl'
 
-  pagesize = %x[getconf PAGESIZE].to_i || 4096
+  pagesize = `getconf PAGESIZE`.to_i || 4096
   shmall = shmmax / pagesize
 
   sysctl_param('kernel.shmmax') { value shmmax.to_i }
