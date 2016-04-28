@@ -198,11 +198,8 @@ The following attributes are supported:
 ```ruby
 osrm_routed 'europe' do
   service_name 'osrm-routed-%s'    # %s will be replaced with the selected region and profile
-
   profile      'car'               # Profile for which to start the daemon
-
   user         'osrm-routed'       # User to run the daemon as (will be created if not existent)
-  home         '/my/osrm-install'  # Home directory of the osrm-routed user
 
   daemon       '/path/to/osrm-routed'
 
@@ -235,13 +232,9 @@ The following attributes are supported:
 ```ruby
 osrm_datastore 'europe' do
   service_name 'osrm-datastore-%s' # %s will be replaced with the selected region and profile
-
   profile      'car'               # Profile for which to start the daemon
-
   shmmax       5_000_000_000       # Memory limit in bytes. Defaults to a value that should be enough for world
-
   user         'osrm-routed'       # User to run the daemon as (will be created if not existent)
-  home         '/my/osrm-install'  # Home directory of the osrm-routed user
 
   command      '/path/to/osrm-datastore'
 

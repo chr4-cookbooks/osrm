@@ -23,7 +23,6 @@ action :create do
   service_name = new_resource.service_name || node['osrm']['datastore']['service_name']
   map_dir      = new_resource.map_dir      || node['osrm']['map_dir']
   user         = new_resource.user         || node['osrm']['datastore']['user']
-  home         = new_resource.home         || node['osrm']['target']
   shmmax       = new_resource.shmmax       || node['osrm']['shmmax']
   command      = new_resource.command      || "#{node['osrm']['target']}/build/osrm-datastore"
   map_base     = new_resource.map_base     || [

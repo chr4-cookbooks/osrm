@@ -23,7 +23,6 @@ action :create do
   service_name = new_resource.service_name || node['osrm']['routed']['service_name']
   map_dir      = new_resource.map_dir      || node['osrm']['map_dir']
   user         = new_resource.user         || node['osrm']['routed']['user']
-  home         = new_resource.home         || node['osrm']['target']
   daemon       = new_resource.daemon       || "#{node['osrm']['target']}/build/osrm-routed"
   threads      = new_resource.threads      || node['osrm']['threads']
   map_base     = new_resource.map_base     || [

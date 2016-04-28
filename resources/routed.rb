@@ -27,7 +27,6 @@ attribute :map_dir,       kind_of: String
 attribute :map_base,      kind_of: String
 attribute :service_name,  kind_of: String
 attribute :user,          kind_of: String
-attribute :home,          kind_of: String
 attribute :daemon,        kind_of: String
 attribute :threads,       kind_of: String
 attribute :listen,        kind_of: String,  default: '127.0.0.1'
