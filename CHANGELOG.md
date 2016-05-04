@@ -3,6 +3,16 @@ osrm CHANGELOG
 
 This file is used to list changes made in each version of the osrm cookbook.
 
+5.0.2
+-----
+
+- Bump default osrm-backend verison to 5.0.2
+
+5.0.1
+-----
+
+- Bump default osrm-backend verison to 5.0.1
+
 5.0.0
 -----
 
