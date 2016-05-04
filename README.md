@@ -86,7 +86,7 @@ osrm_map_download 'germany'
 osrm_map_download 'us-west'
 ```
 
-For a full list of supported regions, take a look at [attributes/regions.rb](https://github.com/flinc-chef/osrm/blob/master/attributes/regions.rb). If necessary, it can be easily extended to support even more, feel free to file a pull request!
+For a full list of supported regions, take a look at [attributes/regions.rb](https://github.com/chr4-cookbooks/osrm/blob/master/attributes/regions.rb). If necessary, it can be easily extended to support even more, feel free to file a pull request!
 
 By default, the provider automatically re-downloads the file if it was changed on the server. You can prevent this behaviour when using the :download_if_missing action:
 
