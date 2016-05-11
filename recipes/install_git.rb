@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: osrm
-# Recipe:: install
+# Recipe:: install_git
 #
 # Copyright 2013, Chris Aumann
 #
