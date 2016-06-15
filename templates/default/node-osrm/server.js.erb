@@ -1,0 +1,95 @@
+/**
+ * Handles URLs like:
+ * http://localhost:5000/route/v1/driving/8.907367,50.105542;8.92864,50.109706;8.92864,50.109706;8.904757,50.106343?alternatives=false&continue_straight=default&geometries=geojson&overview=false&steps=true
+ *
+ * Provides opinionated defaults to the possible query params, if none is given.
+ *
+ * For all possible params, see
+ * https://github.com/Project-OSRM/osrm-backend/blob/master/include/engine/api/route_parameters.hpp
+ * https://github.com/Project-OSRM/node-osrm/blob/master/test/route.js
+ */
+
+var express = require('express');
+var OSRM = require('osrm');
+
+// By default, libuv should set the thread pool size equal to your number of CPUs. However, we
+// usually see better utilization by setting it to 1.5x.
+var numCPUs = require('os').cpus().length;
+process.env.UV_THREADPOOL_SIZE = Math.ceil(numCPUs * 1.5);
+
+var app = express();
+<% if @shared_memory %>
+var osrm = new OSRM();
+<% else %>
+var osrm = new OSRM('<%= @map_file %>');
+<% end %>
+
+var listen = '<%= @listen %>';
+var port = <%= @port %>;
+
+function defaultRoutingConfig() {
+    return {
+        coordinates: [],
+        alternateRoute: false,
+        continue_straight: 'default',
+        geometries: 'geojson',
+        overview: false,
+        steps: true
+    }
+}
+
+function configFromQuery(query) {
+    var config = {};
+
+    if (query.alternatives) {
+        config.alternateRoute = query.alternatives === 'true';
+    }
+
+    if (query.continue_straight) {
+        config.continue_straight = query.continue_straight === 'true';
+    }
+
+    if (query.geometries) {
+        config.geometries = query.geometries;
+    }
+
+    if (query.overview) {
+        config.overview = query.overview;
+    }
+
+    if (query.steps) {
+        config.steps = query.steps === 'true';
+    }
+
+    return config;
+}
+
+function parseCoordinates(str) {
+    return str.split(';').map(function(pair) {
+        return pair.split(',').map(function(num) {
+            return parseFloat(num);
+        });
+    });
+}
+
+function getDrivingDirections(req, res) {
+    var coordinates = parseCoordinates(req.params.coordinates);
+    var config = Object.assign(defaultRoutingConfig(), configFromQuery(req.query), {
+        coordinates: coordinates
+    });
+
+    osrm.route(config, function(err, result) {
+        if (err) {
+            return res.json({
+                error: err.message
+            });
+        } else {
+            return res.json(result);
+        }
+    });
+}
+
+app.get('/route/v1/driving/:coordinates', getDrivingDirections);
+
+console.log('Listening on port: ' + port);
+app.listen(port, listen);

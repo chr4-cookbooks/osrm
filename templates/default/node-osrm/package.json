@@ -1,0 +1,17 @@
+{
+    "name": "node-osrm",
+    "version": "1.0.0",
+    "description": "OSRM node server",
+    "main": "server.js",
+    "dependencies": {
+        "express": "^4.13.4",
+        "osrm": "^5.1.1"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
+    },
+    "author": "Chris Aumann",
+    "license": "GPL-3.0"
+}

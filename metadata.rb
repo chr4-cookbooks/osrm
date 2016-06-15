@@ -9,3 +9,4 @@ source_url       'https://github.com/chr4-cookbooks/osrm' if respond_to?(:source
 issues_url       'https://github.com/chr4-cookbooks/osrm/issues' if respond_to?(:issues_url)
 supports         'ubuntu'
 depends          'sysctl'
+depends          'apt'
