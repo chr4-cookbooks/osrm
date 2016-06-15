@@ -180,9 +180,27 @@ osrm_map_contract 'europe' do
 end
 ```
 
+## osrm_node
+
+Sets up and starts the [node-osrm](https://github.com/Project-OSRM/node-osrm) service.
+
+```ruby
+osrm_node 'europe' do
+  profile  'car'               # Profile for which to start the daemon
+  user     'osrm-node'         # User to run the daemon as
+  port     5000                # TCP port to bind to
+  listen   '127.0.0.1'         # TCP address to listen on
+  map_base '/path/to/map_base' # Base path of the (contracted) map
+                               # e.g. '/opt/osrm-data/europe/car/europe-lastest'
+                               # (skip the file extention, like .edges or .osm.bpf)
+  shared_memory false          # Use a shared-memory segment (created by osrm-datastore, see next provider)
+end
+```
+
 ## osrm_routed
 
-Sets up and starts osrm-routed (using upstart) for the specified region
+Sets up and starts osrm-routed (using upstart) for the specified region.
+NOTE: `osrm_routed` is not recommended for production usage. Use the `osrm_node` provider instead to deploy [node-osrm](https://github.com/Project-OSRM/node-osrm).
 
 Example:
 
@@ -196,12 +214,12 @@ The following attributes are supported:
 osrm_routed 'europe' do
   service_name 'osrm-routed-%s'    # %s will be replaced with the selected region and profile
   profile      'car'               # Profile for which to start the daemon
-  user         'osrm-routed'       # User to run the daemon as (will be created if not existent)
+  user         'osrm-routed'       # User to run the daemon as
 
   daemon       '/path/to/osrm-routed'
 
   map_dir      '/srv/my_map_data'  # Use the same directory you used in osrm_map_download)
-  map_base     '/path/to/map_base' # Base path of the (contractd) map
+  map_base     '/path/to/map_base' # Base path of the (contracted) map
                                    # e.g. '/opt/osrm-data/europe/car/europe-lastest'
                                    # (skip the file extention, like .edges or .osm.bpf)
 
