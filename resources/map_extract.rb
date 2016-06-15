@@ -18,7 +18,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-actions        :extract, :extract_if_missing
+actions        :extract
 default_action :extract
 
 attribute :region,      kind_of: String, name_attribute: true

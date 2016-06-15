@@ -18,7 +18,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-actions        :contract, :contract_if_missing
+actions        :contract
 default_action :contract
 
 attribute :region,      kind_of: String, name_attribute: true

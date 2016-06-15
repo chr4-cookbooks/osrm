@@ -68,8 +68,6 @@ osrm_map 'europe'
   # When set to an ftp:// or http:// URL, retrieve the file and use the checksum in its content
   # When set to a string, use it as the checksum
   checksum        'http://url.to/checksum.md5'
-
-  action :create_if_missing              # :create and :create_if_missing are supported
 end
 
 ```

@@ -20,7 +20,7 @@
 
 use_inline_resources
 
-def extract(exec_action)
+action :extract do
   # Set default variables, as overridden node attributes are not available in resource
   map_dir     = new_resource.map_dir     || node['osrm']['map_dir']
   profile_dir = new_resource.profile_dir || "#{node['osrm']['target']}/profiles"
@@ -56,13 +56,6 @@ def extract(exec_action)
   # Remove .osm.bpf/.osm.bz2
   map_stripped_path = linked_map.split('.')[0..-3].join('.')
 
-  %w(osrm osrm.names osrm.restrictions).each do |extension|
-    # Using rm -f, as file provider is really slow when deleting big files
-    execute "rm -f #{map_stripped_path}.#{extension}" do
-      not_if { exec_action == :extract_if_missing }
-    end
-  end
-
   execute "osrm-#{new_resource.region}-#{new_resource.profile}-extract" do
     user    new_resource.user if new_resource.user
     cwd     cwd
@@ -76,10 +69,3 @@ def extract(exec_action)
   execute "rm -f #{new_resource.stxxl_file}"
 end
 
-action :extract do
-  extract(:extract)
-end
-
-action :extract_if_missing do
-  extract(:extract_if_missing)
-end

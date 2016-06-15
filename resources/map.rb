@@ -18,22 +18,23 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-actions        :create, :create_if_missing
+actions        :create
 default_action :create
 
-attribute :region,           kind_of: String, name_attribute: true
-attribute :map_dir,          kind_of: String
-attribute :map,              kind_of: String
-attribute :user,             kind_of: String
-attribute :profile,          kind_of: String
-attribute :profile_dir,      kind_of: String
-attribute :extract_command,  kind_of: String
-attribute :contract_command, kind_of: String
-attribute :user,             kind_of: String
-attribute :cwd,              kind_of: String
-attribute :threads,          kind_of: String
-attribute :cleanup,          kind_of: [TrueClass, FalseClass]
-attribute :checksum,         kind_of: [TrueClass, FalseClass, String]
-attribute :timeout,          kind_of: Integer
-attribute :stxxl_size,       kind_of: Integer
-attribute :stxxl_file,       kind_of: String
+attribute :region,              kind_of: String, name_attribute: true
+attribute :map_dir,             kind_of: String
+attribute :map,                 kind_of: String
+attribute :user,                kind_of: String
+attribute :profile,             kind_of: String
+attribute :profile_dir,         kind_of: String
+attribute :extract_command,     kind_of: String
+attribute :contract_command,    kind_of: String
+attribute :user,                kind_of: String
+attribute :cwd,                 kind_of: String
+attribute :threads,             kind_of: String
+attribute :cleanup,             kind_of: [TrueClass, FalseClass]
+attribute :checksum,            kind_of: [TrueClass, FalseClass, String]
+attribute :timeout,             kind_of: Integer
+attribute :stxxl_size,          kind_of: Integer
+attribute :stxxl_file,          kind_of: String
+attribute :download_if_missing, kind_of: [TrueClass, FalseClass], default: false

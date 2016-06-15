@@ -20,7 +20,7 @@
 
 use_inline_resources
 
-def contract(exec_action)
+action :contract do
   # Set default variables, as overridden node attributes are not available in resource
   map_dir     = new_resource.map_dir     || node['osrm']['map_dir']
   command     = new_resource.command     || "#{node['osrm']['target']}/build/osrm-contract"
@@ -32,13 +32,6 @@ def contract(exec_action)
   map_stripped_path = [
     map_dir, new_resource.region, new_resource.profile, ::File.basename(map)
   ].join('/').split('.')[0..-3].join('.')
-
-  %w(osrm.edges osrm.fileIndex osrm.hsgr osrm.nodes osrm.ramIndex).each do |extension|
-    # Using rm -f, as file provider is really slow when deleting big files
-    execute "rm -f #{map_stripped_path}.#{extension}" do
-      not_if { exec_action == :contract_if_missing }
-    end
-  end
 
   execute "osrm-#{new_resource.region}-#{new_resource.profile}-contract" do
     user    new_resource.user if new_resource.user
@@ -53,12 +46,4 @@ def contract(exec_action)
   return unless new_resource.cleanup
   execute "rm -f #{map_stripped_path}.osrm"
   execute "rm -f #{map_stripped_path}.osrm.restrictions"
-end
-
-action :contract do
-  contract(:contract)
-end
-
-action :contract_if_missing do
-  contract(:contract_if_missing)
 end

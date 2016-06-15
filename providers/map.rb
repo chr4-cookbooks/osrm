@@ -20,14 +20,14 @@
 
 use_inline_resources
 
-def create(exec_action)
+action :create do
   osrm_map_download new_resource.region do
     map_dir  new_resource.map_dir  if new_resource.map_dir
     url      new_resource.map      if new_resource.map
     user     new_resource.user     if new_resource.user
     checksum new_resource.checksum if new_resource.checksum
 
-    action :download_if_missing if exec_action == :create_if_missing
+    action :download_if_missing if new_resource.download_if_missing
 
     # Only download if map is on the internet
     only_if do
@@ -51,8 +51,6 @@ def create(exec_action)
     timeout     new_resource.timeout         if new_resource.timeout
     stxxl_file  new_resource.stxxl_file      if new_resource.stxxl_file
     stxxl_size  new_resource.stxxl_size      if new_resource.stxxl_size
-
-    action :extract_if_missing if exec_action == :create_if_missing
   end
 
   osrm_map_contract new_resource.region do
@@ -66,15 +64,5 @@ def create(exec_action)
     threads     new_resource.threads         if new_resource.threads
     cleanup     new_resource.cleanup         if new_resource.cleanup
     timeout     new_resource.timeout         if new_resource.timeout
-
-    action :contract_if_missing if exec_action == :create_if_missing
   end
-end
-
-action :create do
-  create(:create)
-end
-
-action :create_if_missing do
-  create(:create_if_missing)
 end
