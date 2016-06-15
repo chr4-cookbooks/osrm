@@ -53,8 +53,9 @@ action :create do
 
   template "#{app_dir}/package.json" do
     owner    user
-    source   'node-osrm/package.json'
+    source   'node-osrm/package.json.erb'
     cookbook 'osrm'
+    variables osrm_version: node['osrm']['node']['version']
     notifies :run, 'execute[npm install]', :immediately
   end
 
