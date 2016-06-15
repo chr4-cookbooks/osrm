@@ -3,6 +3,16 @@ osrm CHANGELOG
 
 This file is used to list changes made in each version of the osrm cookbook.
 
+5.2.0
+-----
+
+- Introduce new provider `osrm_node` to deploy [node-osrm](https://github.com/Project-OSRM/node-osrm)
+- Bump default osrm-backend and node-osrm version to 5.2.2
+- Action `:extract` now works like `:extract_if_missing`, and `:extract_if_missing` was removed
+- Action `:contract` now works like `:contract_if_missing`, and `:contract_if_missing` was removed
+- Action `:create` now works like `:create_if_missing`, and `:create_if_missing` was removed
+- Action `:download_if_missing` was migrated to `download_if_missing` attribute
+
 5.1.0
 -----
 
