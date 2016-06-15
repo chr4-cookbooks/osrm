@@ -5,7 +5,7 @@
     "main": "server.js",
     "dependencies": {
         "express": "^4.13.4",
-        "osrm": "^5.1.1"
+        "osrm": "^5.2.2"
     },
     "devDependencies": {},
     "scripts": {
