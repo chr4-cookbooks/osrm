@@ -68,4 +68,3 @@ action :extract do
   # Using rm -f, as file provider is really slow when deleting big files
   execute "rm -f #{new_resource.stxxl_file}"
 end
-
