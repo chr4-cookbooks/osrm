@@ -54,15 +54,15 @@ action :create do
   end
 
   osrm_map_contract new_resource.region do
-    map_dir     new_resource.map_dir         if new_resource.map_dir
-    map         new_resource.map             if new_resource.map
-    profile     new_resource.profile         if new_resource.profile
-    profile_dir new_resource.profile_dir     if new_resource.profile_dir
+    map_dir     new_resource.map_dir          if new_resource.map_dir
+    map         new_resource.map              if new_resource.map
+    profile     new_resource.profile          if new_resource.profile
+    profile_dir new_resource.profile_dir      if new_resource.profile_dir
     command     new_resource.contract_command if new_resource.contract_command
-    user        new_resource.user            if new_resource.user
-    cwd         new_resource.cwd             if new_resource.cwd
-    threads     new_resource.threads         if new_resource.threads
-    cleanup     new_resource.cleanup         if new_resource.cleanup
-    timeout     new_resource.timeout         if new_resource.timeout
+    user        new_resource.user             if new_resource.user
+    cwd         new_resource.cwd              if new_resource.cwd
+    threads     new_resource.threads          if new_resource.threads
+    cleanup     new_resource.cleanup          if new_resource.cleanup
+    timeout     new_resource.timeout          if new_resource.timeout
   end
 end
