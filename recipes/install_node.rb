@@ -21,6 +21,8 @@
 # Use nodejs-4.x from the official repositories
 # Currently, node-osrm only publishes modules for node 4.
 # See: https://github.com/Project-OSRM/node-osrm/blob/master/.travis.yml#L27-L60
+package 'apt-transport-https'
+
 apt_repository 'node.js' do
   uri 'https://deb.nodesource.com/node_4.x'
   distribution node['lsb']['codename']
