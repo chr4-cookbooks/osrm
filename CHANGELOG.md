@@ -3,6 +3,12 @@ osrm CHANGELOG
 
 This file is used to list changes made in each version of the osrm cookbook.
 
+5.2.1
+-----
+
+- Make sure `apt-transport-https` is installed
+- Add support for systemd service (used by Ubuntu 15.04 and above)
+
 5.2.0
 -----
 
