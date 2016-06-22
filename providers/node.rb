@@ -69,7 +69,7 @@ action :create do
               map: map_file
   end
 
-  # Deploy upstart script
+  # Deploy upstart script on older machines
   template "/etc/init/#{service_name}.conf" do
     mode      00644
     source    'upstart.conf.erb'
@@ -78,10 +78,26 @@ action :create do
               user:        user,
               chdir:       app_dir,
               daemon:      new_resource.daemon
+
+    only_if { node['platform_version'].to_f < 15.04 }
   end
 
   link "/etc/init.d/#{service_name}" do
     to '/lib/init/upstart-job'
+    only_if { node['platform_version'].to_f < 15.04 }
+  end
+
+  # Deploy systemd service on recent machines
+  template "/etc/systemd/system/#{service_name}.service" do
+    mode      00644
+    source    'systemd.service.erb'
+    cookbook  'osrm'
+    variables description: 'OSRM node.js daemon',
+              user:        user,
+              chdir:       app_dir,
+              daemon:      new_resource.daemon
+
+    not_if { node['platform_version'].to_f < 15.04 }
   end
 
   service service_name do
