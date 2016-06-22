@@ -3,6 +3,7 @@ Description=<%= @description %>
 
 [Service]
 Type=simple
+Restart=on-failure
 ExecStart=<%= @daemon %>
 <% if @env %>
 Environment="<%= @env %>"
