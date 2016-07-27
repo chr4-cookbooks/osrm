@@ -18,7 +18,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-default['osrm']['node']['version'] = 'v5.2.2'
+default['osrm']['node']['version'] = 'v5.3.0'
 default['osrm']['node']['user'] = 'osrm-node'
 default['osrm']['node']['service_name'] = 'osrm-node-%s'
 default['osrm']['node']['app_dir'] = '/opt/node-osrm'
