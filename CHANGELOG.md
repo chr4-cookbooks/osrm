@@ -3,6 +3,12 @@ osrm CHANGELOG
 
 This file is used to list changes made in each version of the osrm cookbook.
 
+5.3.0
+-----
+
+- Bump default osrm-backend and node-osrm version to 5.3.0
+- Automatically restart systemd service on failure
+
 5.2.1
 -----
 
