@@ -28,7 +28,7 @@ def download(exec_action)
   path = "#{map_dir}/#{new_resource.region}/#{::File.basename(url)}"
 
   directory ::File.dirname(path) do
-    mode      00755
+    mode      0o755
     owner     new_resource.user if new_resource.user
     recursive true
   end

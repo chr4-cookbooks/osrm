@@ -47,7 +47,7 @@ action :create do
 
   # Create application directory, deploy application files
   directory app_dir do
-    mode  00755
+    mode  0o755
     owner user
   end
 
@@ -71,7 +71,7 @@ action :create do
 
   # Deploy upstart script on older machines
   template "/etc/init/#{service_name}.conf" do
-    mode      00644
+    mode      0o644
     source    'upstart.conf.erb'
     cookbook  'osrm'
     variables description: 'OSRM node.js daemon',
@@ -89,7 +89,7 @@ action :create do
 
   # Deploy systemd service on recent machines
   template "/etc/systemd/system/#{service_name}.service" do
-    mode      00644
+    mode      0o644
     source    'systemd.service.erb'
     cookbook  'osrm'
     variables description: 'OSRM node.js daemon',

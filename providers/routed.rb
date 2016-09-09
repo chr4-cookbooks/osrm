@@ -40,7 +40,7 @@ action :create do
 
   # Deploy upstart script on older machines
   template "/etc/init/#{service_name}.conf" do
-    mode      00644
+    mode      0o644
     source    'upstart.conf.erb'
     cookbook  'osrm'
     variables description: 'OSRM route daemon',
@@ -61,7 +61,7 @@ action :create do
 
   # Deploy systemd service on recent machines
   template "/etc/systemd/system/#{service_name}.service" do
-    mode      00644
+    mode      0o644
     source    'systemd.service.erb'
     cookbook  'osrm'
     variables description: 'OSRM route daemon',

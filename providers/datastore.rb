@@ -50,7 +50,7 @@ action :create do
 
   # ulimit -l shmmax/1024 # 5371093
   template '/etc/security/limits.d/osrm-datastore.conf' do
-    mode      00644
+    mode      0o644
     cookbook  'osrm'
     source    'limits.conf.erb'
     variables memlock: shmmax / 1024 # memlock uses KiB

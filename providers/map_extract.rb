@@ -37,14 +37,14 @@ action :extract do
 
   # Set preferences for stxxl
   file "#{cwd}/.stxxl" do
-    mode    00644
+    mode    0o644
     owner   new_resource.user if new_resource.user
     content "disk=#{new_resource.stxxl_file},#{new_resource.stxxl_size},syscall\n"
     only_if { new_resource.stxxl_size }
   end
 
   directory ::File.dirname(linked_map) do
-    mode  00755
+    mode  0o755
     owner new_resource.user if new_resource.user
   end
 
