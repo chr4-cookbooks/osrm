@@ -60,4 +60,11 @@ end
   default['osrm']['map_data'][region]['checksum'] = "#{node['osrm']['map_data'][region]['url']}.md5"
 end
 
+# South-American regions
+%w(argentina bolivia brazil chile colombia ecuador paraguay peru suriname uruguay).each do |region|
+  default['osrm']['map_data'][region]['profiles'] = %w(car)
+  default['osrm']['map_data'][region]['url'] = "http://download.geofabrik.de/south-america/#{region}-latest.osm.pbf"
+  default['osrm']['map_data'][region]['checksum'] = "#{node['osrm']['map_data'][region]['url']}.md5"
+end
+
 # TODO: other continents
