@@ -3,6 +3,11 @@ osrm CHANGELOG
 
 This file is used to list changes made in each version of the osrm cookbook.
 
+5.4.0
+-----
+
+- Add attributes for south american regions
+
 5.3.0
 -----
 
